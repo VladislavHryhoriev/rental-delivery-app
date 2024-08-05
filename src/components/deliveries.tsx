@@ -1,19 +1,20 @@
-"use client";
-import { useDeliveryStore } from "@/store/store";
+import { IOrder } from "@/models/order.model";
 import clsx from "clsx";
 import { FaCheck } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdEdit, MdError } from "react-icons/md";
 
-const Page = () => {
-  const { deliveries, setIsDone } = useDeliveryStore();
+type Props = {
+  orders: IOrder[];
+  setIsDone: (id: string) => void;
+};
 
+const Orders = ({ orders, setIsDone }: Props) => {
   return (
-    <div>
-      <div className="mb-4">Доставок: {deliveries.length}шт</div>
-      {deliveries.map((delivery) => (
+    <>
+      {orders.map((delivery) => (
         <div
-          key={delivery.id}
+          key={delivery._id}
           className={clsx(
             "line my-4 rounded-md bg-gray-800 p-4",
             delivery.isDone && "line-through opacity-50",
@@ -21,19 +22,16 @@ const Page = () => {
         >
           <div className="flex justify-between">
             <div>
-              <p>{delivery.type}</p>
               <p>Час: {delivery.datetime}</p>
-              <p>Година: {delivery.order}</p>
+              <p>Замовлення: {delivery.order}</p>
               <p>Інструмент: {delivery.tool}</p>
+              <p>Адреса: {delivery.address}</p>
               <p>Вартість доставки: {delivery.cost}</p>
-              <a
-                href={delivery.coordinates}
-                className="text-blue-500 underline"
-              >
-                Открыть карту
+              <a href={delivery.coords} className="text-blue-500 underline">
+                Відкрити карту
               </a>
-              <p>{delivery.phone}</p>
-              <p>{delivery.comments}</p>
+              <p>Телефон: {delivery.phone}</p>
+              <p>Комментар: {delivery.comment}</p>
             </div>
             <div>
               {delivery.isDone ? (
@@ -59,8 +57,8 @@ const Page = () => {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 
-export default Page;
+export default Orders;

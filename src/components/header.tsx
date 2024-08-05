@@ -2,25 +2,28 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaTools } from "react-icons/fa";
+import { FaCalendarCheck, FaHourglassEnd } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
 
 const navigation = [
   {
-    id: 0,
-    name: "Delivery List",
-    href: "/delivery-list",
-    icon: <FaTools />,
+    name: "Активные",
+    href: "/process",
+    icon: <FaHourglassEnd />,
   },
   {
-    id: 1,
+    name: "Завершенные",
+    href: "/completed",
+    icon: <FaCalendarCheck />,
+  },
+  {
     name: "New Delivery",
     href: "/new-delivery",
     icon: <FaCirclePlus />,
   },
 ];
 
-const Container = ({ children }: { children: React.ReactNode }) => {
+const Header = ({ children }: { children: React.ReactNode }) => {
   const path = usePathname();
   return (
     <div className="mx-auto text-white">
@@ -28,7 +31,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
         <nav className="flex justify-between">
           {navigation.map((item) => (
             <Link
-              key={item.id}
+              key={item.href}
               href={item.href}
               className={clsx(
                 "rounded-md bg-red-900 px-8 py-2 active:bg-red-950",
@@ -50,4 +53,4 @@ const Container = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Container;
+export default Header;
