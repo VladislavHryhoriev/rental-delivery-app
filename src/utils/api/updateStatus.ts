@@ -1,4 +1,7 @@
-export default async function getAllOrders(status: "process" | "completed") {
+export default async function updateStatus(
+  id: string,
+  status: "process" | "completed",
+) {
   try {
     const response = await fetch(
       `${process.env.API_URL}/orders/update-status`,
@@ -6,16 +9,16 @@ export default async function getAllOrders(status: "process" | "completed") {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          body: JSON.stringify({}),
+          body: JSON.stringify({ id, status }),
         },
       },
     );
 
-    const data = await response.json();
+    const ok = await response.json();
 
-    return data;
+    return ok;
   } catch (error) {
     console.log(error);
-    return [];
+    return { ok: false };
   }
 }

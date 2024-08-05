@@ -3,6 +3,7 @@
 import Orders from "@/components/deliveries";
 import { IOrder } from "@/models/order.model";
 import getAllOrders from "@/utils/api/getAllOrders";
+import updateStatus from "@/utils/api/updateStatus";
 import { useEffect, useState } from "react";
 
 const Page = () => {
@@ -15,7 +16,9 @@ const Page = () => {
     fetchData();
   }, []);
 
-  const setIsDone = async (id: string) => {};
+  const setIsDone = async (id: string) => {
+    const ok = await updateStatus(id, "completed");
+  };
 
   return (
     <div>
