@@ -119,7 +119,8 @@ const Form = () => {
           type="button"
           className={clsx("rounded-md px-8 py-2", {
             "bg-green-700": status === "process",
-            "bg-gray-600 hover:bg-gray-700": status !== "process",
+            "bg-gray-600 hover:bg-gray-700 active:bg-gray-700":
+              status !== "process",
           })}
           onClick={() => setStatus("process")}
         >
@@ -129,7 +130,8 @@ const Form = () => {
           type="button"
           className={clsx("rounded-md px-8 py-2", {
             "bg-green-700": status === "completed",
-            "bg-gray-600 hover:bg-gray-700": status !== "completed",
+            "bg-gray-600 hover:bg-gray-700 active:bg-gray-700":
+              status !== "completed",
           })}
           onClick={() => setStatus("completed")}
         >
@@ -153,14 +155,14 @@ const Form = () => {
       <div className="flex justify-evenly">
         <button
           type="button"
-          className="rounded-md bg-blue-700 px-8 py-2 hover:bg-blue-800"
+          className="rounded-md bg-blue-700 px-8 py-2 hover:bg-blue-800 active:bg-blue-900"
           onClick={handleShowTemplate}
         >
           <HiTemplate className="text-2xl" />
         </button>
         <button
           type="submit"
-          className="rounded-md bg-green-700 px-16 py-2 hover:bg-green-800"
+          className="rounded-md bg-green-700 px-16 py-2 hover:bg-green-800 active:bg-green-900"
         >
           <FaPlus className="text-2xl" />
         </button>
