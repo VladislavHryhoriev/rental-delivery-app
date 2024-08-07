@@ -1,5 +1,5 @@
 import { connectDB } from "@/db";
-import { Order } from "@/models/order.model";
+import Order from "@/models/order.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {

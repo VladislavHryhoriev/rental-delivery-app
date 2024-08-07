@@ -1,4 +1,6 @@
+"use client";
 import Input from "@/components/form/input";
+import createOrder from "@/utils/api/create-order";
 import clsx from "clsx";
 import { useState } from "react";
 import { FaCommentAlt, FaDollarSign, FaPlus, FaTools } from "react-icons/fa";
@@ -14,87 +16,97 @@ import { IoTime } from "react-icons/io5";
 const formInputNodes = [
   {
     icon: <IoTime className="absolute ml-2 text-2xl" />,
-    placeholder: "Дата та година",
+    placeholder: "Дата та час",
     name: "datetime",
-    template: "_15.06 10:00",
+    type: "datetime-local",
   },
   {
     icon: <FaTableCells className="absolute ml-2 text-2xl" />,
     placeholder: "Замовлення та ПІБ",
     name: "order",
-    template: "_Іванов Іван Іванович",
+    type: "text",
   },
   {
     icon: <FaTools className="absolute ml-2 text-2xl" />,
     placeholder: "Інструмент",
     name: "tool",
-    template: "_Бетономешалка",
+    type: "text",
   },
   {
     icon: <FaLocationDot className="absolute ml-2 text-2xl" />,
     placeholder: "Адреса доставки",
     name: "address",
-    template: "_Вінниця, вул. Юності 10",
+    type: "text",
   },
   {
     icon: <FaLocationCrosshairs className="absolute ml-2 text-2xl" />,
     placeholder: "Координати",
     name: "coords",
-    template: "_https://maps.app.goo.gl/UTDh6coFXgzkz117A",
+    type: "text",
   },
   {
     icon: <FaDollarSign className="absolute ml-2 text-2xl" />,
     placeholder: "Вартість доставки",
     name: "cost",
-    template: "_1000",
+    type: "text",
   },
   {
     icon: <FaSquarePhone className="absolute ml-2 text-2xl" />,
     placeholder: "Номер телефону",
     name: "phone",
-    template: "_0680000000",
+    type: "text",
   },
   {
     icon: <FaCommentAlt className="absolute ml-2 text-2xl" />,
     placeholder: "Коментар",
     name: "comment",
-    template: "_Отдать залог 2000, забрать за доставку 350грн",
+    type: "text",
   },
 ];
 
-type Props = {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  status: string;
-  setStatus: React.Dispatch<React.SetStateAction<string>>;
+interface IInitialInputValues {
+  [key: string]: { value: string; template: string };
+}
+
+const initialInputValues = {
+  datetime: { value: "", template: "2024-12-31T10:00" },
+  order: { value: "", template: "_Іванов Іван Іванович" },
+  tool: { value: "", template: "_Бетономешалка" },
+  cost: { value: "", template: "_1000" },
+  address: { value: "", template: "_Вінниця, вул. Юності 10" },
+  coords: { value: "", template: "_https://maps.app.goo.gl/UTDh6coFXgzkz117A" },
+  phone: { value: "", template: "_0681234567" },
+  comment: { value: "", template: "_Залог 2000, забрать за доставку 350грн" },
 };
 
-const Form = ({ handleSubmit, status, setStatus }: Props) => {
-  const [inputValues, setInputValues] = useState(
-    formInputNodes.reduce(
-      (acc, node) => {
-        acc[node.name] = "";
-        return acc;
-      },
-      {} as Record<string, string>,
-    ),
-  );
+const Form = () => {
+  const [status, setStatus] = useState("process");
+  const [inputValues, setInputValues] =
+    useState<IInitialInputValues>(initialInputValues);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    name: string,
-  ) => {
-    setInputValues({ ...inputValues, [name]: e.target.value });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInputValues((prev) => ({
+      ...prev,
+      [name]: { value, template: inputValues[name].template },
+    }));
   };
 
   const handleShowTemplate = () => {
-    const newInputValues = formInputNodes.reduce(
-      (acc, node) => {
-        acc[node.name] = node.template;
-        return acc;
-      },
-      {} as Record<string, string>,
-    );
-    setInputValues(newInputValues);
+    for (const node in initialInputValues) {
+      setInputValues((prev) => ({
+        ...prev,
+        [node]: {
+          value: (initialInputValues as IInitialInputValues)[node].template,
+          template: (initialInputValues as IInitialInputValues)[node].template,
+        },
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    await createOrder(e, status);
+    setInputValues(initialInputValues);
   };
 
   return (
@@ -111,7 +123,7 @@ const Form = ({ handleSubmit, status, setStatus }: Props) => {
           })}
           onClick={() => setStatus("process")}
         >
-          Активный
+          Активний
         </button>
         <button
           type="button"
@@ -121,7 +133,7 @@ const Form = ({ handleSubmit, status, setStatus }: Props) => {
           })}
           onClick={() => setStatus("completed")}
         >
-          Завершенный
+          Завершений
         </button>
       </div>
 
@@ -129,10 +141,11 @@ const Form = ({ handleSubmit, status, setStatus }: Props) => {
         <div key={i} className="relative flex items-center">
           {node.icon}
           <Input
+            type={node.type}
             placeholder={node.placeholder}
             name={node.name}
-            value={inputValues[node.name]}
-            onChange={(e) => handleInputChange(e, node.name)}
+            value={(inputValues as any)[node.name].value}
+            onChange={(e) => handleInputChange(e)}
           />
         </div>
       ))}

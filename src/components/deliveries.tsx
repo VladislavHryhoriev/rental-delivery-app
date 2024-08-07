@@ -1,17 +1,34 @@
+"use client";
 import { IOrder } from "@/models/order.model";
+import getAllOrders from "@/utils/api/getAllOrders";
+import updateStatus from "@/utils/api/updateStatus";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdEdit, MdError } from "react-icons/md";
 
-type Props = {
-  orders: IOrder[];
-  setIsDone: (id: string) => void;
-};
+const Orders = () => {
+  const [orders, setOrders] = useState<IOrder[]>([]);
 
-const Orders = ({ orders, setIsDone }: Props) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const orders = await getAllOrders("process");
+      setOrders(orders);
+    };
+    fetchData();
+  }, [orders]);
+
+  const setIsDone = async (id: string) => {
+    const ok = await updateStatus(id, "completed");
+    console.log(ok);
+  };
+
   return (
     <>
+      <div className="mb-4">
+        <div>В процесі: {orders.length}шт</div>
+      </div>
       {orders.map((delivery) => (
         <div
           key={delivery._id}
@@ -22,7 +39,9 @@ const Orders = ({ orders, setIsDone }: Props) => {
         >
           <div className="flex justify-between">
             <div>
-              <p>Час: {delivery.datetime}</p>
+              <p>
+                Час: {new Date(delivery.datetime).toLocaleString().slice(0, -3)}
+              </p>
               <p>Замовлення: {delivery.order}</p>
               <p>Інструмент: {delivery.tool}</p>
               <p>Адреса: {delivery.address}</p>

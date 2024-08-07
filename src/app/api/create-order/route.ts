@@ -1,14 +1,15 @@
 import { connectDB } from "@/db";
-import { IOrderEX, Order } from "@/models/order.model";
-import { NextResponse } from "next/server";
+import Order, { IOrderEX } from "@/models/order.model";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
     await connectDB();
 
     const order: IOrderEX = new Order({
+      createdAt: new Date(),
       status: body.status,
       datetime: body.datetime,
       order: body.order,
@@ -23,9 +24,9 @@ export async function POST(req: Request) {
 
     await order.save();
 
-    return NextResponse.json("body");
+    return NextResponse.json(order);
   } catch (error) {
     console.log(error);
-    return NextResponse.json(`error: ${error}`);
+    return NextResponse.json({ error: `${error}` }, { status: 500 });
   }
 }

@@ -3,18 +3,13 @@ export default async function updateStatus(
   status: "process" | "completed",
 ) {
   try {
-    const response = await fetch(
-      `${process.env.API_URL}/orders/update-status`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          body: JSON.stringify({ id, status }),
-        },
-      },
-    );
+    const res = await fetch(`${process.env.API_URL}/orders/update-status`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, status }),
+    });
 
-    const ok = await response.json();
+    const ok = await res.json();
 
     return ok;
   } catch (error) {

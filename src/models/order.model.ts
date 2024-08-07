@@ -1,7 +1,8 @@
-import { Document, model, models, Schema } from "mongoose";
+import mongoose, { Document, model, models, Schema } from "mongoose";
 
 export interface IOrder {
   _id: string;
+  createdAt: Date;
   status: string;
   datetime: string;
   order: string;
@@ -16,6 +17,7 @@ export interface IOrder {
 
 export interface IOrderEX extends Document {
   _id: string;
+  createdAt: Date;
   status: string;
   datetime: string;
   order: string;
@@ -29,6 +31,7 @@ export interface IOrderEX extends Document {
 }
 
 const OrderSchema = new Schema<IOrderEX>({
+  createdAt: { type: Date, default: Date.now },
   status: { type: String, required: true },
   datetime: { type: String, required: true },
   order: { type: String, required: true },
@@ -41,4 +44,8 @@ const OrderSchema = new Schema<IOrderEX>({
   isDone: { type: Boolean, required: true },
 });
 
-export const Order = models.Order || model<IOrderEX>("Order", OrderSchema);
+// mongoose.deleteModel("Order");
+
+const Order = models.Order || model<IOrderEX>("Order", OrderSchema);
+
+export default Order;
