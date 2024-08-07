@@ -11,13 +11,10 @@ interface Deliveries {
   coordinates: string;
   phone: string;
   comments: string;
-  isDone: boolean;
 }
 
 interface DeliveryStore {
   deliveries: Deliveries[];
-  addDelivery: (delivery: Deliveries) => void;
-  setIsDone: (id: number) => void;
 }
 
 export const useDeliveryStore = create<DeliveryStore>((set) => ({
@@ -33,7 +30,6 @@ export const useDeliveryStore = create<DeliveryStore>((set) => ({
       coordinates: "https://maps.app.goo.gl/PRBmB9f4qdfvLC7p8",
       phone: "0663322150",
       comments: "1460 отдать",
-      isDone: false,
     },
     {
       id: 1,
@@ -46,22 +42,6 @@ export const useDeliveryStore = create<DeliveryStore>((set) => ({
       coordinates: "https://maps.app.goo.gl/PRBmB9f4qdfvLC7p8",
       phone: "0663322150",
       comments: "1460 отдать",
-      isDone: false,
     },
   ],
-
-  setIsDone(id) {
-    set((state) => ({
-      deliveries: state.deliveries.map((delivery) => {
-        if (delivery.id === id) {
-          return { ...delivery, isDone: !delivery.isDone };
-        }
-        return delivery;
-      }),
-    }));
-  },
-
-  addDelivery: (delivery) => {
-    set((state) => ({ deliveries: [...state.deliveries, delivery] }));
-  },
 }));

@@ -1,8 +1,9 @@
 "use client";
 import { IOrder } from "@/models/order.model";
-import getAllOrders from "@/utils/api/getAllOrders";
-import updateStatus from "@/utils/api/updateStatus";
+import getAllOrders from "@/utils/api/get-all-orders";
+import updateStatus from "@/utils/api/update-status";
 import clsx from "clsx";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -10,6 +11,7 @@ import { MdEdit, MdError } from "react-icons/md";
 
 const Orders = () => {
   const [orders, setOrders] = useState<IOrder[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,9 +19,11 @@ const Orders = () => {
       setOrders(orders);
     };
     fetchData();
-  }, [orders]);
+    setLoading(false);
+  }, [loading]);
 
-  const setIsDone = async (id: string) => {
+  const setToCompleted = async (id: string) => {
+    setLoading(true);
     const ok = await updateStatus(id, "completed");
     console.log(ok);
   };
@@ -34,14 +38,12 @@ const Orders = () => {
           key={delivery._id}
           className={clsx(
             "line my-4 rounded-md bg-gray-800 p-4",
-            delivery.isDone && "line-through opacity-50",
+            delivery.status === "completed" && "line-through opacity-50",
           )}
         >
           <div className="flex justify-between">
             <div>
-              <p>
-                Час: {new Date(delivery.datetime).toLocaleString().slice(0, -3)}
-              </p>
+              <p>Час: {moment(delivery.datetime).format("DD.MM hh:mm")}</p>
               <p>Замовлення: {delivery.order}</p>
               <p>Інструмент: {delivery.tool}</p>
               <p>Адреса: {delivery.address}</p>
@@ -53,7 +55,7 @@ const Orders = () => {
               <p>Комментар: {delivery.comment}</p>
             </div>
             <div>
-              {delivery.isDone ? (
+              {delivery.status === "completed" ? (
                 <FaCheck className="text-green-500" />
               ) : (
                 <MdError className="text-red-500" />
@@ -64,11 +66,16 @@ const Orders = () => {
             <button
               className={clsx(
                 "rounded-md bg-green-600 px-4 py-2 active:bg-green-700",
-                delivery.isDone && "bg-yellow-600 active:bg-yellow-700",
+                delivery.status === "completed" &&
+                  "bg-yellow-600 active:bg-yellow-700",
               )}
-              onClick={() => setIsDone(delivery._id)}
+              onClick={() => setToCompleted(delivery._id)}
             >
-              {delivery.isDone ? <IoMdArrowRoundBack /> : <FaCheck />}
+              {delivery.status === "completed" ? (
+                <IoMdArrowRoundBack />
+              ) : (
+                <FaCheck />
+              )}
             </button>
             <button className="rounded-md bg-red-800 px-4 py-2">
               <MdEdit />

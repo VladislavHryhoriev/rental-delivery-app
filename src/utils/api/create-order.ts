@@ -5,7 +5,6 @@ export default async function createOrder(
   e.preventDefault();
   const formData = new FormData(e.currentTarget);
   formData.append("status", status);
-  formData.append("isDone", "false");
   const data = Object.fromEntries(formData);
 
   try {

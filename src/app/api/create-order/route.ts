@@ -1,5 +1,6 @@
 import { connectDB } from "@/db";
 import Order, { IOrderEX } from "@/models/order.model";
+import moment from "moment-timezone";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -9,7 +10,7 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     const order: IOrderEX = new Order({
-      createdAt: new Date(),
+      createdAt: moment().tz("Europe/Kyiv").format("DD.MM HH:mm"),
       status: body.status,
       datetime: body.datetime,
       order: body.order,
@@ -19,12 +20,11 @@ export async function POST(req: NextRequest) {
       coords: body.coords,
       phone: body.phone,
       comment: body.comment,
-      isDone: false,
     });
 
     await order.save();
 
-    return NextResponse.json(order);
+    return NextResponse.json({ created: order });
   } catch (error) {
     console.log(error);
     return NextResponse.json({ error: `${error}` }, { status: 500 });

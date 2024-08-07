@@ -2,6 +2,7 @@
 import Input from "@/components/form/input";
 import createOrder from "@/utils/api/create-order";
 import clsx from "clsx";
+import moment from "moment-timezone";
 import { useState } from "react";
 import { FaCommentAlt, FaDollarSign, FaPlus, FaTools } from "react-icons/fa";
 import {
@@ -69,7 +70,10 @@ interface IInitialInputValues {
 }
 
 const initialInputValues = {
-  datetime: { value: "", template: "2024-12-31T10:00" },
+  datetime: {
+    value: moment().tz("Europe/Kyiv").format("YYYY-MM-DDTHH:mm"),
+    template: "2024-12-31T10:00",
+  },
   order: { value: "", template: "_Іванов Іван Іванович" },
   tool: { value: "", template: "_Бетономешалка" },
   cost: { value: "", template: "_1000" },
@@ -78,6 +82,8 @@ const initialInputValues = {
   phone: { value: "", template: "_0681234567" },
   comment: { value: "", template: "_Залог 2000, забрать за доставку 350грн" },
 };
+
+console.log(initialInputValues.datetime);
 
 const Form = () => {
   const [status, setStatus] = useState("process");

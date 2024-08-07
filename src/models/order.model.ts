@@ -1,8 +1,9 @@
+import moment from "moment";
 import mongoose, { Document, model, models, Schema } from "mongoose";
 
 export interface IOrder {
   _id: string;
-  createdAt: Date;
+  createdAt: () => Date;
   status: string;
   datetime: string;
   order: string;
@@ -12,12 +13,11 @@ export interface IOrder {
   coords: string;
   phone: string;
   comment: string;
-  isDone: boolean;
 }
 
 export interface IOrderEX extends Document {
   _id: string;
-  createdAt: Date;
+  createdAt: () => Date;
   status: string;
   datetime: string;
   order: string;
@@ -27,11 +27,14 @@ export interface IOrderEX extends Document {
   coords: string;
   phone: string;
   comment: string;
-  isDone: boolean;
 }
 
+const getTime = () => {
+  return moment().tz("Europe/Kyiv").format("DD.MM HH:mm");
+};
+
 const OrderSchema = new Schema<IOrderEX>({
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: String, default: getTime },
   status: { type: String, required: true },
   datetime: { type: String, required: true },
   order: { type: String, required: true },
@@ -41,10 +44,9 @@ const OrderSchema = new Schema<IOrderEX>({
   coords: { type: String, required: true },
   phone: { type: String, required: true },
   comment: { type: String, required: true },
-  isDone: { type: Boolean, required: true },
 });
 
-// mongoose.deleteModel("Order");
+mongoose.deleteModel("Order");
 
 const Order = models.Order || model<IOrderEX>("Order", OrderSchema);
 

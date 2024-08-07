@@ -14,6 +14,6 @@ export default async function updateStatus(
     return ok;
   } catch (error) {
     console.log(error);
-    return { ok: false };
+    return { ok: false, error };
   }
 }
