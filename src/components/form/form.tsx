@@ -83,8 +83,6 @@ const initialInputValues = {
   comment: { value: "", template: "_Залог 2000, забрать за доставку 350грн" },
 };
 
-console.log(initialInputValues.datetime);
-
 const Form = () => {
   const [status, setStatus] = useState("process");
   const [inputValues, setInputValues] =
@@ -166,6 +164,7 @@ const Form = () => {
         >
           <HiTemplate className="text-2xl" />
         </button>
+
         <button
           type="submit"
           className="rounded-md bg-green-700 px-16 py-2 hover:bg-green-800 active:bg-green-900"

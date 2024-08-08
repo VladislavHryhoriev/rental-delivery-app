@@ -8,7 +8,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { MdDeleteForever, MdEdit, MdError } from "react-icons/md";
+import { MdDeleteForever, MdError } from "react-icons/md";
 
 const Page = () => {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -17,7 +17,11 @@ const Page = () => {
   useEffect(() => {
     const fetchData = async () => {
       const orders = await getAllOrders("completed");
-      setOrders(orders);
+      const sortedOrders = orders.sort((a: IOrder, b: IOrder) => {
+        return moment(a.datetime).diff(moment(b.datetime));
+      });
+
+      setOrders(sortedOrders);
     };
     fetchData();
     setLoading(false);
@@ -84,12 +88,10 @@ const Page = () => {
                 <FaCheck />
               )}
             </button>
-            <button className="rounded-md bg-red-800 px-4 py-2">
-              <MdEdit />
-            </button>
+
             <button
               onClick={() => handleDelete(delivery._id)}
-              className="rounded-md bg-red-800 px-4 py-2"
+              className="rounded-md bg-red-800 px-4 py-2 active:bg-red-900"
             >
               <MdDeleteForever />
             </button>
