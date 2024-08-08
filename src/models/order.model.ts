@@ -1,5 +1,5 @@
 import moment from "moment";
-import mongoose, { Document, model, models, Schema } from "mongoose";
+import { Document, model, models, Schema } from "mongoose";
 
 export interface IOrder {
   _id: string;
