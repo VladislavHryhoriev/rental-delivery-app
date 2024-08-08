@@ -46,8 +46,6 @@ const OrderSchema = new Schema<IOrderEX>({
   comment: { type: String, required: true },
 });
 
-mongoose.deleteModel("Order");
-
 const Order = models.Order || model<IOrderEX>("Order", OrderSchema);
 
 export default Order;
