@@ -1,0 +1,17 @@
+{
+  "name": "Rental Delivery",
+  "short_name": "Rental Delivery",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "150x150",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}

@@ -26,7 +26,7 @@ const navigation = [
 const Header = ({ children }: { children: React.ReactNode }) => {
   const path = usePathname();
   return (
-    <div className="mx-auto text-white">
+    <div className="mx-auto max-w-[768px] text-white">
       <header className="bg-neutral-900 p-4 text-2xl text-indigo-50">
         <nav className="flex justify-between">
           {navigation.map((item) => (

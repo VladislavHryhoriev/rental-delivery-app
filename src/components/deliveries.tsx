@@ -91,7 +91,7 @@ const Orders = () => {
           <option value="all">Усі</option>
           <option value="today">Сьогодні</option>
           <option value="tomorrow">Завтра</option>
-          <option value="after-tomorrow">Послезавтра</option>
+          <option value="after-tomorrow">Післязавтра</option>
         </select>
       </div>
       {filteredOrders.map((delivery) => (
@@ -127,7 +127,7 @@ const Orders = () => {
               )}
             </div>
           </div>
-          <div className="flex justify-center gap-4">
+          <div className="mt-4 flex justify-center gap-4">
             <button
               className={clsx(
                 "rounded-md bg-green-600 px-4 py-2 active:bg-green-700",
