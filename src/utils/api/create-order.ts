@@ -1,10 +1,12 @@
 export default async function createOrder(
   e: React.FormEvent<HTMLFormElement>,
   status: string,
+  deliveryType: string,
 ) {
   e.preventDefault();
   const formData = new FormData(e.currentTarget);
   formData.append("status", status);
+  formData.append("deliveryType", deliveryType);
   const data = Object.fromEntries(formData);
 
   try {

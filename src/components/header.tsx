@@ -18,7 +18,7 @@ const navigation = [
   },
   {
     name: "New Delivery",
-    href: "/new-delivery",
+    href: "/create-order",
     icon: <FaCirclePlus />,
   },
 ];

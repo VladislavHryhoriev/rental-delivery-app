@@ -1,7 +1,6 @@
 "use client";
 import Input from "@/components/form/input";
 import createOrder from "@/utils/api/create-order";
-import clsx from "clsx";
 import moment from "moment-timezone";
 import { useState } from "react";
 import { FaCommentAlt, FaDollarSign, FaPlus, FaTools } from "react-icons/fa";
@@ -13,6 +12,8 @@ import {
 } from "react-icons/fa6";
 import { HiTemplate } from "react-icons/hi";
 import { IoTime } from "react-icons/io5";
+import DeliveryTypeButton from "./deliveryTypeButton";
+import StatusButton from "./statusButton";
 
 const formInputNodes = [
   {
@@ -85,6 +86,7 @@ const initialInputValues = {
 
 const Form = () => {
   const [status, setStatus] = useState("process");
+  const [deliveryType, setDeliveryType] = useState("contract");
   const [inputValues, setInputValues] =
     useState<IInitialInputValues>(initialInputValues);
 
@@ -109,7 +111,7 @@ const Form = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    await createOrder(e, status);
+    await createOrder(e, status, deliveryType);
     setInputValues(initialInputValues);
   };
 
@@ -118,31 +120,6 @@ const Form = () => {
       onSubmit={handleSubmit}
       className="mt-4 flex flex-col gap-4 bg-gray-800 p-4"
     >
-      <div className="relative flex justify-evenly">
-        <button
-          type="button"
-          className={clsx("rounded-md px-8 py-2", {
-            "bg-green-700": status === "process",
-            "bg-gray-600 hover:bg-gray-700 active:bg-gray-700":
-              status !== "process",
-          })}
-          onClick={() => setStatus("process")}
-        >
-          Активний
-        </button>
-        <button
-          type="button"
-          className={clsx("rounded-md px-8 py-2", {
-            "bg-green-700": status === "completed",
-            "bg-gray-600 hover:bg-gray-700 active:bg-gray-700":
-              status !== "completed",
-          })}
-          onClick={() => setStatus("completed")}
-        >
-          Завершений
-        </button>
-      </div>
-
       {formInputNodes.map((node, i) => (
         <div key={i} className="relative flex items-center">
           {node.icon}
@@ -156,10 +133,48 @@ const Form = () => {
         </div>
       ))}
 
-      <div className="flex justify-evenly">
+      <div className="relative flex gap-2 bg-slate-600 p-2">
+        <StatusButton
+          status={status}
+          setStatus={setStatus}
+          activeStatus="process"
+          text="Активний"
+        />
+        <StatusButton
+          status={status}
+          setStatus={setStatus}
+          activeStatus="completed"
+          text="Завершений"
+        />
+      </div>
+
+      <div className="relative bg-slate-600 p-2">
+        <div className="mb-2 flex gap-2">
+          <DeliveryTypeButton
+            deliveryType={deliveryType}
+            setDeliveryType={setDeliveryType}
+            activedeliveryType="contract"
+            text="Договір"
+          />
+          <DeliveryTypeButton
+            deliveryType={deliveryType}
+            setDeliveryType={setDeliveryType}
+            activedeliveryType="deposit"
+            text="Залог"
+          />
+        </div>
+        <DeliveryTypeButton
+          deliveryType={deliveryType}
+          setDeliveryType={setDeliveryType}
+          activedeliveryType="contract+deposit"
+          text="Договір + Залог"
+        />
+      </div>
+
+      <div className="flex gap-2">
         <button
           type="button"
-          className="rounded-md bg-blue-700 px-8 py-2 hover:bg-blue-800 active:bg-blue-900"
+          className="flex flex-1 justify-center rounded-md bg-blue-700 py-2 hover:bg-blue-800 active:bg-blue-900"
           onClick={handleShowTemplate}
         >
           <HiTemplate className="text-2xl" />
@@ -167,7 +182,7 @@ const Form = () => {
 
         <button
           type="submit"
-          className="rounded-md bg-green-700 px-16 py-2 hover:bg-green-800 active:bg-green-900"
+          className="flex flex-[4] justify-center rounded-md bg-green-700 py-2 hover:bg-green-800 active:bg-green-900"
         >
           <FaPlus className="text-2xl" />
         </button>

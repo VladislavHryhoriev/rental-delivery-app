@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
     const order: IOrderEX = new Order({
       createdAt: moment().tz("Europe/Kyiv").format("DD.MM HH:mm"),
       status: body.status,
+      deliveryType: body.deliveryType,
       datetime: body.datetime,
       order: body.order,
       tool: body.tool,

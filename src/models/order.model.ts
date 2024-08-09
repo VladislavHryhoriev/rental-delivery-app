@@ -1,10 +1,11 @@
 import moment from "moment";
-import { Document, model, models, Schema } from "mongoose";
+import mongoose, { Document, model, models, Schema } from "mongoose";
 
 export interface IOrder {
   _id: string;
   createdAt: () => Date;
-  status: string;
+  status: "process" | "completed";
+  deliveryType: "contract" | "deposit" | "contract+deposit";
   datetime: string;
   order: string;
   tool: string;
@@ -19,6 +20,7 @@ export interface IOrderEX extends Document {
   _id: string;
   createdAt: () => Date;
   status: string;
+  deliveryType: "contract" | "deposit" | "contract+deposit";
   datetime: string;
   order: string;
   tool: string;
@@ -36,6 +38,7 @@ const getTime = () => {
 const OrderSchema = new Schema<IOrderEX>({
   createdAt: { type: String, default: getTime },
   status: { type: String, required: true },
+  deliveryType: { type: String, required: true },
   datetime: { type: String, required: true },
   order: { type: String, required: true },
   tool: { type: String, required: true },
