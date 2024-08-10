@@ -16,7 +16,7 @@ const DeliveryTypeButton = ({
   return (
     <button
       type="button"
-      className={clsx("w-full rounded-md px-4 py-2", {
+      className={clsx("w-full rounded-sm px-4 py-2", {
         "bg-green-700": deliveryType === activedeliveryType,
         "bg-gray-700 hover:bg-gray-800 active:bg-gray-800":
           deliveryType !== activedeliveryType,

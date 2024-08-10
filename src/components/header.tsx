@@ -8,17 +8,17 @@ import { FaCirclePlus } from "react-icons/fa6";
 const navigation = [
   {
     name: "Активные",
-    href: "/process",
+    href: "/orders/process",
     icon: <FaHourglassEnd />,
   },
   {
     name: "Завершенные",
-    href: "/completed",
+    href: "/orders/completed",
     icon: <FaCalendarCheck />,
   },
   {
     name: "New Delivery",
-    href: "/create-order",
+    href: "/orders/create-order",
     icon: <FaCirclePlus />,
   },
 ];
@@ -34,7 +34,7 @@ const Header = ({ children }: { children: React.ReactNode }) => {
               key={item.href}
               href={item.href}
               className={clsx(
-                "rounded-md bg-red-900 px-8 py-2 active:bg-red-950",
+                "rounded-sm bg-red-900 px-8 py-2 active:bg-red-950",
                 path === item.href && "bg-red-950",
               )}
             >
@@ -42,7 +42,7 @@ const Header = ({ children }: { children: React.ReactNode }) => {
             </Link>
           ))}
 
-          {/* <Link href="/sign" className="rounded-md bg-red-900 px-8 py-2">
+          {/* <Link href="/sign" className="rounded-sm bg-red-900 px-8 py-2">
             <BiLogIn />
             <BiLogOut />
           </Link> */}

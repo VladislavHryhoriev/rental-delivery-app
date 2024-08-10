@@ -118,7 +118,7 @@ const Form = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-4 flex flex-col gap-4 bg-gray-800 p-4"
+      className="mt-4 flex flex-col gap-4 rounded-sm bg-gray-800 p-4"
     >
       {formInputNodes.map((node, i) => (
         <div key={i} className="relative flex items-center">
@@ -133,7 +133,7 @@ const Form = () => {
         </div>
       ))}
 
-      <div className="relative flex gap-2 bg-slate-600 p-2">
+      <div className="relative flex gap-2 rounded-sm bg-slate-600 p-2">
         <StatusButton
           status={status}
           setStatus={setStatus}
@@ -148,7 +148,7 @@ const Form = () => {
         />
       </div>
 
-      <div className="relative bg-slate-600 p-2">
+      <div className="relative rounded-sm bg-slate-600 p-2">
         <div className="mb-2 flex gap-2">
           <DeliveryTypeButton
             deliveryType={deliveryType}
@@ -174,7 +174,7 @@ const Form = () => {
       <div className="flex gap-2">
         <button
           type="button"
-          className="flex flex-1 justify-center rounded-md bg-blue-700 py-2 hover:bg-blue-800 active:bg-blue-900"
+          className="flex flex-1 justify-center rounded-sm bg-blue-700 py-2 hover:bg-blue-800 active:bg-blue-900"
           onClick={handleShowTemplate}
         >
           <HiTemplate className="text-2xl" />
@@ -182,7 +182,7 @@ const Form = () => {
 
         <button
           type="submit"
-          className="flex flex-[4] justify-center rounded-md bg-green-700 py-2 hover:bg-green-800 active:bg-green-900"
+          className="flex flex-[4] justify-center rounded-sm bg-green-700 py-2 hover:bg-green-800 active:bg-green-900"
         >
           <FaPlus className="text-2xl" />
         </button>

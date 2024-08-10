@@ -5,34 +5,34 @@ import { MdError } from "react-icons/md";
 
 const types = {
   contract: "Договір",
-  deposit: "Консультація",
-  "contract+deposit": "Договір + Застава",
+  deposit: "Залог",
+  "contract+deposit": "Договір + Залог",
 };
 
-const OrderInfo = ({ delivery }: { delivery: IOrder }) => {
-  const type = types[delivery.deliveryType];
+const OrderInfo = ({ order }: { order: IOrder }) => {
+  const type = types[order.deliveryType];
 
   return (
     <div className="flex justify-between">
       <div>
-        <h1 className="mb-2 text-center text-xl">{type}</h1>
-        <p>Час: {moment(delivery.datetime).format("DD.MM hh:mm")}</p>
-        <p>Замовлення: {delivery.order}</p>
-        <p>Інструмент: {delivery.tool}</p>
-        <p>Адреса: {delivery.address}</p>
-        <p>Вартість доставки: {delivery.cost}</p>
+        <h1 className="mb-2 text-center text-xl sm:text-left">{type}</h1>
+        <p>Час: {moment(order.datetime).format("DD.MM hh:mm")}</p>
+        <p>Замовлення: {order.order}</p>
+        <p>Інструмент: {order.tool}</p>
+        <p>Адреса: {order.address}</p>
+        <p>Вартість доставки: {order.cost}</p>
         <a
-          href={delivery.coords}
+          href={order.coords}
           target="_blank"
           className="text-blue-500 underline"
         >
           Відкрити карту
         </a>
-        <p>Телефон: {delivery.phone}</p>
-        <p>Комментар: {delivery.comment}</p>
+        <p>Телефон: {order.phone}</p>
+        <p>Комментар: {order.comment}</p>
       </div>
       <div>
-        {delivery.status === "completed" ? (
+        {order.status === "completed" ? (
           <FaCheck className="text-green-500" />
         ) : (
           <MdError className="text-red-500" />

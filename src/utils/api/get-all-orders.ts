@@ -1,4 +1,11 @@
 import { IOrder } from "@/models/order.model";
+import moment from "moment";
+
+const sortOrdersByDate = (orders: IOrder[]) => {
+  return orders.sort((a: IOrder, b: IOrder) =>
+    moment(a.datetime).diff(moment(b.datetime)),
+  );
+};
 
 export default async function getAllOrders(
   status: "process" | "completed",
@@ -10,7 +17,7 @@ export default async function getAllOrders(
 
     const data = await response.json();
 
-    return data;
+    return sortOrdersByDate(data);
   } catch (error) {
     console.log(error);
     return [];

@@ -1,4 +1,6 @@
 "use client";
+import DeleteButton from "@/components/deleteButton";
+import MoveBackButton from "@/components/moveBackButton";
 import { IOrder } from "@/models/order.model";
 import deleteOrder from "@/utils/api/delete-order";
 import getAllOrders from "@/utils/api/get-all-orders";
@@ -7,21 +9,19 @@ import clsx from "clsx";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { MdDeleteForever, MdError } from "react-icons/md";
+import { MdError } from "react-icons/md";
 
 const Page = () => {
   const [orders, setOrders] = useState<IOrder[]>([]);
+  const [filteredOrders, setFilteredOrders] = useState<IOrder[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       const orders = await getAllOrders("completed");
-      const sortedOrders = orders.sort((a: IOrder, b: IOrder) => {
-        return moment(a.datetime).diff(moment(b.datetime));
-      });
 
-      setOrders(sortedOrders);
+      setOrders(orders);
+      setFilteredOrders(orders);
     };
     fetchData();
     setLoading(false);
@@ -42,13 +42,13 @@ const Page = () => {
   return (
     <>
       <div className="mb-4">
-        <div>Завершені: {orders.length}шт</div>
+        <div>Завершені: {filteredOrders.length}шт</div>
       </div>
-      {orders.map((delivery) => (
+      {filteredOrders.map((delivery) => (
         <div
           key={delivery._id}
           className={clsx(
-            "line my-4 rounded-md bg-gray-800 p-4",
+            "line my-4 rounded-sm bg-gray-800 p-4",
             delivery.status === "completed" && "line-through opacity-50",
           )}
         >
@@ -74,27 +74,9 @@ const Page = () => {
             </div>
           </div>
           <div className="flex justify-center gap-4">
-            <button
-              className={clsx(
-                "rounded-md bg-green-600 px-4 py-2 active:bg-green-700",
-                delivery.status === "completed" &&
-                  "bg-yellow-600 active:bg-yellow-700",
-              )}
-              onClick={() => setToProcess(delivery._id)}
-            >
-              {delivery.status === "completed" ? (
-                <IoMdArrowRoundBack />
-              ) : (
-                <FaCheck />
-              )}
-            </button>
+            <MoveBackButton delivery={delivery} handler={setToProcess} />
 
-            <button
-              onClick={() => handleDelete(delivery._id)}
-              className="rounded-md bg-red-800 px-4 py-2 active:bg-red-900"
-            >
-              <MdDeleteForever />
-            </button>
+            <DeleteButton delivery={delivery} handler={handleDelete} />
           </div>
         </div>
       ))}
