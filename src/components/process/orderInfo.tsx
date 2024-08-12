@@ -21,9 +21,8 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
           <p>Інструмент: {order.tool}</p>
           <p>Адреса: {order.address}</p>
           <p>Вартість доставки: {order.cost}</p>
-
           <p>Телефон: {order.phone}</p>
-          <p>Комментар: {order.comment}</p>
+          <p className="txt- mt-4">Комментар: {order.comment}</p>
         </div>
       </div>
       <div>
