@@ -12,7 +12,7 @@ type Props = {
 };
 
 const Order = ({ order, isLoading, setIsLoading }: Props) => {
-  const time = moment(order.datetime).format("hh:mm DD.MM");
+  const time = moment(order.datetime).format("HH:mm DD.MM");
 
   return (
     <>

@@ -11,7 +11,7 @@ const types = {
 
 const OrderInfo = ({ order }: { order: IOrder }) => {
   const type = types[order.deliveryType];
-  const time = moment(order.datetime).format("hh:mm DD.MM");
+  const time = moment(order.datetime).format("HH:mm DD.MM");
 
   return (
     <div className="flex justify-between">
