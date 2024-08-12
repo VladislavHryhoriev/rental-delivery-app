@@ -11,25 +11,20 @@ const types = {
 
 const OrderInfo = ({ order }: { order: IOrder }) => {
   const type = types[order.deliveryType];
+  const time = moment(order.datetime).format("hh:mm DD.MM");
 
   return (
     <div className="flex justify-between">
       <div>
-        <h1 className="mb-2 text-center text-xl sm:text-left">{type}</h1>
-        <p>Час: {moment(order.datetime).format("DD.MM hh:mm")}</p>
-        <p>Замовлення: {order.order}</p>
-        <p>Інструмент: {order.tool}</p>
-        <p>Адреса: {order.address}</p>
-        <p>Вартість доставки: {order.cost}</p>
-        <a
-          href={order.coords}
-          target="_blank"
-          className="text-blue-500 underline"
-        >
-          Відкрити карту
-        </a>
-        <p>Телефон: {order.phone}</p>
-        <p>Комментар: {order.comment}</p>
+        <div>
+          <h1 className="mb-2 text-center text-xl sm:text-left">{type}</h1>
+          <p>{order.order}</p>
+          <p>Інструмент: {order.tool}</p>
+          <p>Адреса: {order.address}</p>
+          <p>Вартість доставки: {order.cost}</p>
+          <p>Телефон: {order.phone}</p>
+          <p>Комментар: {order.comment}</p>
+        </div>
       </div>
       <div>
         {order.status === "completed" ? (

@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import Orders from "@/components/process/orders";
+import Order from "@/components/process/order";
 import { IOrder } from "@/models/order.model";
 import getAllOrders from "@/utils/api/get-all-orders";
+import clsx from "clsx";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
@@ -59,11 +60,21 @@ const Page = () => {
         </select>
       </div>
 
-      <Orders
-        filteredOrders={filteredOrders}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-      />
+      {filteredOrders.map((order) => (
+        <div
+          key={order._id}
+          className={clsx(
+            "line my-4 rounded-sm bg-gray-800 p-4",
+            order.status === "completed" && "line-through opacity-50",
+          )}
+        >
+          <Order
+            order={order}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+          />
+        </div>
+      ))}
     </>
   );
 };

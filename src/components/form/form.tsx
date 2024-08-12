@@ -73,13 +73,13 @@ interface IInitialInputValues {
 const initialInputValues = {
   datetime: {
     value: moment().tz("Europe/Kyiv").format("YYYY-MM-DDTHH:mm"),
-    template: "2024-12-31T10:00",
+    template: moment().tz("Europe/Kyiv").format("YYYY-MM-DDTHH:mm"),
   },
-  order: { value: "", template: "_Іванов Іван Іванович" },
+  order: { value: "", template: "_№12345 Іванов Іван Іванович" },
   tool: { value: "", template: "_Бетономешалка" },
   cost: { value: "", template: "_1000" },
   address: { value: "", template: "_Вінниця, вул. Юності 10" },
-  coords: { value: "", template: "_https://maps.app.goo.gl/UTDh6coFXgzkz117A" },
+  coords: { value: "", template: "https://maps.app.goo.gl/UTDh6coFXgzkz117A" },
   phone: { value: "", template: "_0681234567" },
   comment: { value: "", template: "_Залог 2000, забрать за доставку 350грн" },
 };

@@ -10,24 +10,23 @@ type Props = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const AcceptButton = ({ order, isLoading, setIsLoading }: Props) => {
-  const setToCompleted = async (id: string) => {
+const SetToProcessButton = ({ order, isLoading, setIsLoading }: Props) => {
+  const setToProcess = async (id: string) => {
     setIsLoading(true);
-
-    const ok = await updateStatus(id, "completed");
+    const ok = await updateStatus(id, "process");
     console.log(ok);
-
     setIsLoading(false);
   };
 
   return (
     <button
+      title="Вернуть в активные"
       className={clsx(
-        "rounded-sm bg-green-600 px-4 py-2 active:bg-green-700",
+        "rounded-s-md bg-green-600 px-4 py-2 active:bg-green-700",
         order.status === "completed" && "bg-yellow-600 active:bg-yellow-700",
         isLoading && "bg-gray-700",
       )}
-      onClick={() => setToCompleted(order._id)}
+      onClick={() => setToProcess(order._id)}
       disabled={isLoading}
     >
       {order.status === "completed" ? <IoMdArrowRoundBack /> : <FaCheck />}
@@ -35,4 +34,4 @@ const AcceptButton = ({ order, isLoading, setIsLoading }: Props) => {
   );
 };
 
-export default AcceptButton;
+export default SetToProcessButton;
