@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import Order from "@/components/process/order";
+import Order from "@/components/order";
 import { IOrder } from "@/models/order.model";
 import getAllOrders from "@/utils/api/get-all-orders";
 import clsx from "clsx";
@@ -32,10 +32,13 @@ const Page = () => {
     } else {
       const filtered = orders.filter((order) => {
         const orderDate = moment(order.datetime).format("YYYY-MM-DD");
+
         if (target.value === "today") return orderDate === today;
         if (target.value === "tomorrow") return orderDate === tomorrow;
         if (target.value === "after-tomorrow")
           return orderDate === afterTomorrow;
+
+        //тут
       });
       setFilteredOrders(filtered);
     }
@@ -54,19 +57,22 @@ const Page = () => {
           defaultValue="all"
         >
           <option value="all">Усі</option>
-          <option value="today">Сьогодні</option>
-          <option value="tomorrow">Завтра</option>
-          <option value="after-tomorrow">Післязавтра</option>
+          <optgroup label="По днях:">
+            <option value="today">Сьогодні</option>
+            <option value="tomorrow">Завтра</option>
+            <option value="after-tomorrow">Післязавтра</option>
+          </optgroup>
+          <optgroup label="По типу:">
+            <option value="forward">Привезти</option>
+            <option value="back">Забрати</option>
+          </optgroup>
         </select>
       </div>
 
       {filteredOrders.map((order) => (
         <div
           key={order._id}
-          className={clsx(
-            "line my-4 rounded-sm bg-gray-800 p-4",
-            order.status === "completed" && "line-through opacity-50",
-          )}
+          className={clsx("line my-4 rounded-sm bg-gray-800 p-4")}
         >
           <Order
             order={order}

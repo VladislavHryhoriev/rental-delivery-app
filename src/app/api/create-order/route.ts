@@ -1,27 +1,32 @@
 import { connectDB } from "@/db";
-import Order, { IOrderEX } from "@/models/order.model";
+import Order, { IOrder, IOrderEX } from "@/models/order.model";
 import moment from "moment-timezone";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const body: IOrder = await req.json();
 
     await connectDB();
 
     const order: IOrderEX = new Order({
       createdAt: moment().tz("Europe/Kyiv").format("DD.MM HH:mm"),
       status: body.status,
+      type: body.type,
       deliveryType: body.deliveryType,
+
+      order_num: body.order_num,
       datetime: body.datetime,
       order: body.order,
       tool: body.tool,
-      cost: body.cost,
+      cost_delivery: body.cost_delivery,
+      cost_rental: body.cost_rental,
+      cost_deposit: body.cost_deposit,
       address: body.address,
       coords: body.coords,
       phone: body.phone,
       comment: body.comment,
-    });
+    } as IOrderEX);
 
     await order.save();
 

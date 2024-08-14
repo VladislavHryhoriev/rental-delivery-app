@@ -1,12 +1,16 @@
+import { IButtons } from "@/components/form/form";
+
 export default async function createOrder(
   e: React.FormEvent<HTMLFormElement>,
-  status: string,
-  deliveryType: string,
+  buttons: IButtons,
 ) {
   e.preventDefault();
   const formData = new FormData(e.currentTarget);
-  formData.append("status", status);
-  formData.append("deliveryType", deliveryType);
+
+  for (const element in buttons) {
+    formData.append(element, buttons[element as keyof IButtons]);
+  }
+
   const data = Object.fromEntries(formData);
 
   try {

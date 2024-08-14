@@ -1,13 +1,14 @@
 import clsx from "clsx";
+import { IButtons } from "./form";
 
 type Props = {
   status: string;
-  setStatus: React.Dispatch<React.SetStateAction<string>>;
-  activeStatus: string;
+  setButtons: React.Dispatch<React.SetStateAction<IButtons>>;
+  activeStatus: "process" | "completed";
   text: string;
 };
 
-const StatusButton = ({ status, setStatus, activeStatus, text }: Props) => {
+const StatusButton = ({ status, setButtons, activeStatus, text }: Props) => {
   return (
     <button
       type="button"
@@ -16,7 +17,9 @@ const StatusButton = ({ status, setStatus, activeStatus, text }: Props) => {
         "bg-gray-700 hover:bg-gray-800 active:bg-gray-800":
           status !== activeStatus,
       })}
-      onClick={() => setStatus(activeStatus)}
+      onClick={() =>
+        setButtons((prev: IButtons) => ({ ...prev, status: activeStatus }))
+      }
     >
       {text}
     </button>

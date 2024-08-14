@@ -1,15 +1,20 @@
 import moment from "moment";
-import { Document, model, models, Schema } from "mongoose";
+import mongoose, { Document, model, models, Schema } from "mongoose";
 
 export interface IOrder {
   _id: string;
-  createdAt: () => Date;
+  createdAt: string;
   status: "process" | "completed";
-  deliveryType: "contract" | "deposit" | "contract+deposit";
+  type: "contract" | "deposit" | "contract+deposit";
+  deliveryType: "forward" | "back";
+  // form input
+  order_num: string;
   datetime: string;
   order: string;
   tool: string;
-  cost: string;
+  cost_delivery: string;
+  cost_rental: string;
+  cost_deposit: string;
   address: string;
   coords: string;
   phone: string;
@@ -18,13 +23,18 @@ export interface IOrder {
 
 export interface IOrderEX extends Document {
   _id: string;
-  createdAt: () => Date;
-  status: string;
-  deliveryType: "contract" | "deposit" | "contract+deposit";
+  createdAt: string;
+  status: "process" | "completed";
+  type: "contract" | "deposit" | "contract+deposit";
+  deliveryType: "forward" | "back";
+  // form input
+  order_num: string;
   datetime: string;
   order: string;
   tool: string;
-  cost: string;
+  cost_delivery: string;
+  cost_rental: string;
+  cost_deposit: string;
   address: string;
   coords: string;
   phone: string;
@@ -37,17 +47,28 @@ const getTime = () => {
 
 const OrderSchema = new Schema<IOrderEX>({
   createdAt: { type: String, default: getTime },
-  status: { type: String, required: true },
-  deliveryType: { type: String, required: true },
+  status: { type: String, required: true, enum: ["process", "completed"] },
+  type: {
+    type: String,
+    required: true,
+    enum: ["contract", "deposit", "contract+deposit"],
+  },
+  deliveryType: { type: String, required: true, enum: ["forward", "back"] },
+  //
+  order_num: { type: String, required: true },
   datetime: { type: String, required: true },
   order: { type: String, required: true },
   tool: { type: String, required: true },
-  cost: { type: String, required: true },
+  cost_delivery: { type: String, required: true },
+  cost_rental: { type: String, required: true },
+  cost_deposit: { type: String, required: true },
   address: { type: String, required: true },
   coords: { type: String, required: true },
   phone: { type: String, required: true },
   comment: { type: String, required: true },
 });
+
+// mongoose.deleteModel("Order");
 
 const Order = models.Order || model<IOrderEX>("Order", OrderSchema);
 

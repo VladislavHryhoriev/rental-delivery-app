@@ -1,5 +1,5 @@
 "use client";
-import Order from "@/components/completed/order";
+import Order from "@/components/order";
 import { IOrder } from "@/models/order.model";
 import getAllOrders from "@/utils/api/get-all-orders";
 import clsx from "clsx";
@@ -34,7 +34,6 @@ const Page = () => {
           )}
         >
           <Order
-            key={order._id}
             order={order}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
