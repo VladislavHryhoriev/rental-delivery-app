@@ -15,12 +15,15 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
   return (
     <>
       <div className="mb-2 text-center text-xl">
-        <h1>{type}</h1>
-        <p className="text-sm">({deliveryType})</p>
+        <h1>
+          №{order.order_num} {order.order}
+        </h1>
+        <p className="text-sm text-gray-200">
+          {type} | {deliveryType}
+        </p>
       </div>
       <div>
         <div className="rounded-md bg-slate-700 p-2">
-          <p>{order.order}</p>
           <p>Інструмент: {order.tool}</p>
           <p>Адреса: {order.address}</p>
           <p>
@@ -33,9 +36,6 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
 
         <div className="mt-4 rounded-md bg-slate-700 p-2">
           <p>
-            Доставка: <span>{order.cost_delivery}</span>
-          </p>
-          <p>
             Оренда: <span>{order.cost_rental}</span>
           </p>
           {order.cost_deposit && order.type !== "contract" && (
@@ -45,6 +45,9 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
               <span>{order.cost_deposit}</span>
             </p>
           )}
+          <p>
+            Доставка: <span>{order.cost_delivery}</span>
+          </p>
         </div>
         <p className="txt- mt-4 text-sm text-orange-400">{order.comment}</p>
       </div>
