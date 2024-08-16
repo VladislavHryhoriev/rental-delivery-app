@@ -47,7 +47,7 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
           <MdDriveFileRenameOutline className="absolute ml-2 text-2xl" />
           <Input
             placeholder="ПІБ"
-            name="order"
+            name="user"
             value={inputValues.order.value}
             inputValues={inputValues}
             setInputValues={setInputValues}

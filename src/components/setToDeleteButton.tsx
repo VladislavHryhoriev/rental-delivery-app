@@ -21,6 +21,7 @@ const SetToDeleteButton = ({ order, isLoading, setIsLoading }: Props) => {
       title="Удалить"
       onClick={() => setToDelete(order._id)}
       className="rounded-e-md bg-red-800 px-4 py-2 active:bg-red-900"
+      disabled={isLoading}
     >
       <MdDeleteForever />
     </button>

@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
       order_num: body.order_num,
       datetime: body.datetime,
-      order: body.order,
+      user: body.user,
       tool: body.tool,
       cost_delivery: body.cost_delivery,
       cost_rental: body.cost_rental,

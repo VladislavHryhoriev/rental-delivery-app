@@ -10,7 +10,7 @@ export interface IOrder {
   // form input
   order_num: string;
   datetime: string;
-  order: string;
+  user: string;
   tool: string;
   cost_delivery: string;
   cost_rental: string;
@@ -30,7 +30,7 @@ export interface IOrderEX extends Document {
   // form input
   order_num: string;
   datetime: string;
-  order: string;
+  user: string;
   tool: string;
   cost_delivery: string;
   cost_rental: string;
@@ -57,7 +57,7 @@ const OrderSchema = new Schema<IOrderEX>({
   //
   order_num: { type: String, required: true },
   datetime: { type: String, required: true },
-  order: { type: String, required: true },
+  user: { type: String, required: true },
   tool: { type: String, required: true },
   cost_delivery: { type: String, required: true },
   cost_rental: { type: String, required: true },
@@ -68,7 +68,7 @@ const OrderSchema = new Schema<IOrderEX>({
   comment: { type: String, required: true },
 });
 
-// mongoose.deleteModel("Order");
+mongoose.deleteModel("Order");
 
 const Order = models.Order || model<IOrderEX>("Order", OrderSchema);
 

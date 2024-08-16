@@ -49,14 +49,14 @@ const Page = () => {
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div>
           <div>В процесі: {orders.length}шт</div>
           <div>Відсортовані: {filteredOrders.length}шт</div>
         </div>
         <select
           onChange={handleChange}
-          className="border-none p-1 active:outline-none"
+          className="border-none bg-gray-700 p-1 active:outline-none"
           defaultValue="all"
         >
           <option value="all">Усі</option>
@@ -72,18 +72,17 @@ const Page = () => {
         </select>
       </div>
 
-      {filteredOrders.map((order) => (
-        <div
-          key={order._id}
-          className={clsx("line my-4 rounded-sm bg-gray-800 p-4")}
-        >
-          <Order
-            order={order}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-          />
-        </div>
-      ))}
+      <div className="mt-4 flex flex-col gap-4">
+        {filteredOrders.map((order) => (
+          <div key={order._id} className={"rounded-md bg-gray-800 p-4"}>
+            <Order
+              order={order}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+            />
+          </div>
+        ))}
+      </div>
     </>
   );
 };
