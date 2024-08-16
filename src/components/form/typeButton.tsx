@@ -3,8 +3,8 @@ import { IButtons } from "./form";
 
 type Props = {
   text: string;
-  type: string;
-  activeType: string;
+  type: "contract" | "deposit" | "contract+deposit";
+  activeType: "contract" | "deposit" | "contract+deposit";
   setButtons: React.Dispatch<React.SetStateAction<IButtons>>;
 };
 
