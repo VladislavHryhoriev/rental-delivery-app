@@ -43,7 +43,7 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
 
           <div className="mt-2 bg-slate-700 p-2">
             <p>
-              Оренда:{" "}
+              <span>Оренда: </span>
               <span className="text-green-400">{order.cost_rental}</span>
             </p>
             {order.cost_deposit && order.type !== "contract" && (
@@ -54,7 +54,7 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
               </p>
             )}
             <p>
-              Доставка:{" "}
+              <span>Доставка: </span>
               <span className="text-green-400">{order.cost_delivery}</span>
             </p>
           </div>

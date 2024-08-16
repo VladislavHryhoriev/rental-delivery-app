@@ -37,7 +37,7 @@ const initialInputValues = {
   address: { value: "", template: "Вінниця, вул. Юності 10" },
   coords: { value: "", template: "https://maps.app.goo.gl/UTDh6coFXgzkz117A" },
   phone: { value: "", template: "0681234567" },
-  comment: { value: "", template: "Залог 2000, забрать за доставку 350грн" },
+  comment: { value: "", template: "Что-то сделать сегодня, что-то завтра..." },
 };
 
 export interface IButtons {
