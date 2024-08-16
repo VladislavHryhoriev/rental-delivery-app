@@ -19,23 +19,29 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
         <p className="text-sm">({deliveryType})</p>
       </div>
       <div>
-        <p>{order.order}</p>
-        <p>Інструмент: {order.tool}</p>
-        <p>Адреса: {order.address}</p>
-        <p>Телефон: {order.phone}</p>
+        <div className="rounded-md bg-slate-700 p-2">
+          <p>{order.order}</p>
+          <p>Інструмент: {order.tool}</p>
+          <p>Адреса: {order.address}</p>
+          <p>
+            Телефон:{" "}
+            <a className="text-blue-500" href={`tel:${order.phone}`}>
+              {order.phone}
+            </a>
+          </p>
+        </div>
 
-        <div className="mt-4 flex justify-between gap-2 rounded-md bg-slate-700 p-2">
-          <p className="flex flex-col items-center">
-            <span>Доставка</span>
-            <span>{order.cost_delivery}</span>
+        <div className="mt-4 rounded-md bg-slate-700 p-2">
+          <p>
+            Доставка: <span>{order.cost_delivery}</span>
           </p>
-          <p className="flex flex-col items-center">
-            <span>Оренда</span>
-            <span>{order.cost_rental}</span>
+          <p>
+            Оренда: <span>{order.cost_rental}</span>
           </p>
-          {order.cost_deposit && (
-            <p className="flex flex-col items-center">
-              <span>Застава</span>
+          {order.cost_deposit && order.type !== "contract" && (
+            <p>
+              {order.type === "contract+deposit" && "Частковий залог: "}
+              {order.type === "deposit" && "Залог: "}
               <span>{order.cost_deposit}</span>
             </p>
           )}

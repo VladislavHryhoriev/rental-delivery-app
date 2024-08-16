@@ -1,93 +1,25 @@
 "use client";
-import Input from "@/components/form/input";
 import createOrder from "@/utils/api/create-order";
 import moment from "moment-timezone";
 import { useState } from "react";
-import { AiOutlineFieldNumber } from "react-icons/ai";
-import { FaCommentAlt, FaDollarSign, FaPlus, FaTools } from "react-icons/fa";
-import {
-  FaLocationCrosshairs,
-  FaLocationDot,
-  FaSquarePhone,
-} from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa";
 import { HiTemplate } from "react-icons/hi";
-import { IoTime } from "react-icons/io5";
-import { MdDriveFileRenameOutline } from "react-icons/md";
 import DeliveryTypeButton from "./deliveryTypeButton";
-import StatusButton from "./statusButton";
+import Inputs from "./inputs";
 import TypeButton from "./typeButton";
-import clsx from "clsx";
 
-const formInputNodes = [
-  {
-    icon: <IoTime className="absolute ml-2 text-2xl" />,
-    placeholder: "Дата та час",
-    name: "datetime",
-    type: "datetime-local",
-  },
-  {
-    icon: <AiOutlineFieldNumber className="absolute ml-2 text-2xl" />,
-    placeholder: "Номер замовлення",
-    name: "order_num",
-    type: "text",
-  },
-  {
-    icon: <MdDriveFileRenameOutline className="absolute ml-2 text-2xl" />,
-    placeholder: "ПІБ",
-    name: "order",
-    type: "text",
-  },
-  {
-    icon: <FaTools className="absolute ml-2 text-2xl" />,
-    placeholder: "Інструмент",
-    name: "tool",
-    type: "text",
-  },
-  {
-    icon: <FaLocationDot className="absolute ml-2 text-2xl" />,
-    placeholder: "Адреса доставки",
-    name: "address",
-    type: "text",
-  },
-  {
-    icon: <FaLocationCrosshairs className="absolute ml-2 text-2xl" />,
-    placeholder: "Посилання на карту",
-    name: "coords",
-    type: "text",
-  },
-  {
-    icon: <FaDollarSign className="absolute ml-2 text-2xl" />,
-    placeholder: "Вартість доставки",
-    name: "cost_delivery",
-    type: "text",
-  },
-  {
-    icon: <FaDollarSign className="absolute ml-2 text-2xl" />,
-    placeholder: "Вартість оренди",
-    name: "cost_rental",
-    type: "text",
-  },
-  {
-    icon: <FaDollarSign className="absolute ml-2 text-2xl" />,
-    placeholder: "Вартість залогу",
-    name: "cost_deposit",
-    type: "text",
-  },
-  {
-    icon: <FaSquarePhone className="absolute ml-2 text-2xl" />,
-    placeholder: "Номер телефону",
-    name: "phone",
-    type: "text",
-  },
-  {
-    icon: <FaCommentAlt className="absolute ml-2 text-2xl" />,
-    placeholder: "Коментар",
-    name: "comment",
-    type: "text",
-  },
-];
-
-interface IInitialInputValues {
+export interface IInitialInputValues {
+  datetime: { value: string; template: string };
+  order_num: { value: string; template: string };
+  order: { value: string; template: string };
+  tool: { value: string; template: string };
+  cost_delivery: { value: string; template: string };
+  cost_rental: { value: string; template: string };
+  cost_deposit: { value: string; template: string };
+  address: { value: string; template: string };
+  coords: { value: string; template: string };
+  phone: { value: string; template: string };
+  comment: { value: string; template: string };
   [key: string]: { value: string; template: string };
 }
 
@@ -110,7 +42,7 @@ const initialInputValues = {
 
 export interface IButtons {
   status: "process" | "completed";
-  type: string;
+  type: "contract" | "deposit" | "contract+deposit";
   deliveryType: "forward" | "back";
 }
 
@@ -123,14 +55,6 @@ const Form = () => {
     type: "contract",
     deliveryType: "forward",
   });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInputValues((prev) => ({
-      ...prev,
-      [name]: { value, template: inputValues[name].template },
-    }));
-  };
 
   const handleShowTemplate = () => {
     for (const node in initialInputValues) {
@@ -192,23 +116,11 @@ const Form = () => {
         />
       </div>
 
-      {formInputNodes.map((node, i) => (
-        <div
-          key={i}
-          className={clsx("flex items-center", {
-            hidden: buttons.type === "contract" && node.name === "cost_deposit",
-          })}
-        >
-          {node.icon}
-          <Input
-            type={node.type}
-            placeholder={node.placeholder}
-            name={node.name}
-            value={(inputValues as any)[node.name].value}
-            onChange={(e) => handleInputChange(e)}
-          />
-        </div>
-      ))}
+      <Inputs
+        buttons={buttons}
+        inputValues={inputValues}
+        setInputValues={setInputValues}
+      />
 
       <div className="flex gap-2">
         <button

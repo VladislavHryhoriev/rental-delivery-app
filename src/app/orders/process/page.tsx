@@ -38,6 +38,9 @@ const Page = () => {
         if (target.value === "after-tomorrow")
           return orderDate === afterTomorrow;
 
+        if (target.value === "forward") return order.deliveryType === "forward";
+        if (target.value === "back") return order.deliveryType === "back";
+
         //тут
       });
       setFilteredOrders(filtered);
