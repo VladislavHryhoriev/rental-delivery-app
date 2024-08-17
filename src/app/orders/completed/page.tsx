@@ -4,21 +4,36 @@ import { IOrder } from "@/models/order.model";
 import getAllOrders from "@/utils/api/get-all-orders";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { BeatLoader } from "react-spinners";
 
 const Page = () => {
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<IOrder[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const orders = await getAllOrders("completed");
       setOrders(orders);
       setFilteredOrders(orders);
+      setIsFetching(false);
     };
 
     fetchData();
   }, [isLoading]);
+
+  if (isFetching) {
+    return (
+      <div className="mt-8 flex justify-center">
+        <BeatLoader color="#991b1b" />
+      </div>
+    );
+  }
+
+  if (orders.length === 0) {
+    return <div className="text-center">Немає завершених замовлень</div>;
+  }
 
   return (
     <>

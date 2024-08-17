@@ -48,7 +48,7 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
           <Input
             placeholder="ПІБ"
             name="user"
-            value={inputValues.order.value}
+            value={inputValues.user.value}
             inputValues={inputValues}
             setInputValues={setInputValues}
           />

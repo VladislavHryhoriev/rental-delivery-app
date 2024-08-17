@@ -3,7 +3,7 @@ export default async function updateStatus(
   status: "process" | "completed",
 ) {
   try {
-    const res = await fetch(`${process.env.API_URL}/orders/update-status`, {
+    const res = await fetch(`/api/orders/update-status`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, status }),

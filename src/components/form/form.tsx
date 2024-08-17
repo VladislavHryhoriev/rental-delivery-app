@@ -11,7 +11,7 @@ import TypeButton from "./typeButton";
 export interface IInitialInputValues {
   datetime: { value: string; template: string };
   order_num: { value: string; template: string };
-  order: { value: string; template: string };
+  user: { value: string; template: string };
   tool: { value: string; template: string };
   cost_delivery: { value: string; template: string };
   cost_rental: { value: string; template: string };
@@ -29,7 +29,7 @@ const initialInputValues = {
     template: moment().tz("Europe/Kyiv").format("YYYY-MM-DDTHH:mm"),
   },
   order_num: { value: "", template: "12345" },
-  order: { value: "", template: "Петров Іван Степанович" },
+  user: { value: "", template: "Петров Іван Степанович" },
   tool: { value: "", template: "Болгарка INTERTOOL 230мм (DT-0290) 220В" },
   cost_delivery: { value: "", template: "300" },
   cost_rental: { value: "", template: "1000" },
@@ -69,7 +69,9 @@ const Form = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     await createOrder(e, buttons);
+    // reset
     setInputValues(initialInputValues);
   };
 

@@ -3,20 +3,22 @@
 import Order from "@/components/order";
 import { IOrder } from "@/models/order.model";
 import getAllOrders from "@/utils/api/get-all-orders";
-import clsx from "clsx";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import { BeatLoader } from "react-spinners";
 
 const Page = () => {
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<IOrder[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const orders = await getAllOrders("process");
       setOrders(orders);
       setFilteredOrders(orders);
+      setIsFetching(false);
     };
 
     fetchData();
@@ -40,12 +42,21 @@ const Page = () => {
 
         if (target.value === "forward") return order.deliveryType === "forward";
         if (target.value === "back") return order.deliveryType === "back";
-
-        //тут
       });
       setFilteredOrders(filtered);
     }
   };
+
+  if (isFetching)
+    return (
+      <div className="mt-8 flex justify-center">
+        <BeatLoader color="#991b1b" />
+      </div>
+    );
+
+  if (orders.length === 0) {
+    return <div className="text-center">Немає замовлень в процесі</div>;
+  }
 
   return (
     <>

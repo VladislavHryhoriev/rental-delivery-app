@@ -5,10 +5,10 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
-    const status = req.nextUrl.searchParams.get("status");
-    const orders = await Order.find({ status: status });
+    const id = req.nextUrl.searchParams.get("id");
+    const order = await Order.findOne({ _id: id });
 
-    return NextResponse.json(orders);
+    return NextResponse.json(order);
   } catch (error) {
     console.log(error);
     return NextResponse.json(`error: ${error}`);

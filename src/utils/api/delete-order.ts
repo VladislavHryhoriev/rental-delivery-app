@@ -1,6 +1,6 @@
 export default async function deleteOrder(id: string) {
   try {
-    const res = await fetch(`${process.env.API_URL}/orders/delete-order`, {
+    const res = await fetch(`/api/orders/delete-order`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),

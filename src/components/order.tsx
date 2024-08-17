@@ -38,7 +38,7 @@ const Order = ({ order, isLoading, setIsLoading }: Props) => {
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
-              <SetToEditButton />
+              <SetToEditButton order={order} />
             </>
           )}
 
