@@ -1,13 +1,13 @@
 "use client";
 import { IOrder } from "@/models/order.model";
 import updateOrder from "@/utils/api/update-order";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import DeliveryTypeButton from "./deliveryTypeButton";
 import { IButtons, IInitialInputValues } from "./form";
 import Inputs from "./inputs";
 import TypeButton from "./typeButton";
-import { useRouter } from "next/navigation";
 
 const EditForm = ({ order }: { order: IOrder }) => {
   const router = useRouter();
