@@ -42,63 +42,66 @@ const EditForm = ({ order }: { order: IOrder }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mt-4 flex flex-col gap-4 rounded-md bg-gray-800 p-4"
-    >
-      <div className="rounded-md bg-slate-600 p-2">
-        <div className="mb-2 flex gap-2">
+    <>
+      <h1 className="text-center">Редагування доставки №{order.order_num}</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="mt-4 flex flex-col gap-4 rounded-md bg-gray-800 p-4"
+      >
+        <div className="rounded-md bg-slate-600 p-2">
+          <div className="mb-2 flex gap-2">
+            <TypeButton
+              type={buttons.type}
+              setButtons={setButtons}
+              activeType="contract"
+              text="Договір"
+            />
+            <TypeButton
+              type={buttons.type}
+              setButtons={setButtons}
+              activeType="deposit"
+              text="Залог"
+            />
+          </div>
           <TypeButton
             type={buttons.type}
             setButtons={setButtons}
-            activeType="contract"
-            text="Договір"
-          />
-          <TypeButton
-            type={buttons.type}
-            setButtons={setButtons}
-            activeType="deposit"
-            text="Залог"
+            activeType="contract+deposit"
+            text="Договір + Залог"
           />
         </div>
-        <TypeButton
-          type={buttons.type}
-          setButtons={setButtons}
-          activeType="contract+deposit"
-          text="Договір + Залог"
-        />
-      </div>
 
-      <div className="flex gap-2 rounded-md bg-slate-600 p-2">
-        <DeliveryTypeButton
-          deliveryType={buttons.deliveryType}
-          setButtons={setButtons}
-          activeDeliveryType="forward"
-          text="Привезти"
-        />
-        <DeliveryTypeButton
-          deliveryType={buttons.deliveryType}
-          setButtons={setButtons}
-          activeDeliveryType="back"
-          text="Забрати"
-        />
-      </div>
+        <div className="flex gap-2 rounded-md bg-slate-600 p-2">
+          <DeliveryTypeButton
+            deliveryType={buttons.deliveryType}
+            setButtons={setButtons}
+            activeDeliveryType="forward"
+            text="Привезти"
+          />
+          <DeliveryTypeButton
+            deliveryType={buttons.deliveryType}
+            setButtons={setButtons}
+            activeDeliveryType="back"
+            text="Забрати"
+          />
+        </div>
 
-      <Inputs
-        buttons={buttons}
-        inputValues={inputValues}
-        setInputValues={setInputValues}
-      />
+        <Inputs
+          buttons={buttons}
+          inputValues={inputValues}
+          setInputValues={setInputValues}
+        />
 
-      <div className="flex gap-2">
-        <button
-          type="submit"
-          className="flex flex-[4] justify-center rounded-md bg-yellow-700 py-2 hover:bg-yellow-800 active:bg-yellow-900"
-        >
-          <FaEdit className="text-2xl" />
-        </button>
-      </div>
-    </form>
+        <div className="flex gap-2">
+          <button
+            type="submit"
+            className="flex flex-[4] justify-center rounded-md bg-yellow-700 py-2 hover:bg-yellow-800 active:bg-yellow-900"
+          >
+            <FaEdit className="text-2xl" />
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 
