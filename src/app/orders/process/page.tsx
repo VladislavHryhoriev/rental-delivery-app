@@ -50,7 +50,10 @@ const Page = () => {
   if (isFetching)
     return (
       <div className="flex h-[50vh] items-center justify-center">
-        <BeatLoader color="#991b1b" />
+        <div className="flex flex-col items-center gap-4">
+          <BeatLoader color="#4ade80" />
+          <span className="text-gray-400">Завантаження...</span>
+        </div>
       </div>
     );
 

@@ -25,14 +25,21 @@ const Page = () => {
 
   if (isFetching) {
     return (
-      <div className="mt-8 flex justify-center">
-        <BeatLoader color="#991b1b" />
+      <div className="flex h-[50vh] items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <BeatLoader color="#4ade80" />
+          <span className="text-gray-400">Завантаження...</span>
+        </div>
       </div>
     );
   }
 
   if (orders.length === 0) {
-    return <div className="text-center">Немає завершених замовлень</div>;
+    return (
+      <div className="flex h-[50vh] items-center justify-center text-xl text-gray-400">
+        Немає завершених замовлень
+      </div>
+    );
   }
 
   return (
