@@ -16,52 +16,66 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
   const deliveryType = deliveryTypes[order.deliveryType];
 
   return (
-    <>
-      <div className="mb-2 text-center text-xl">
-        <h1>
-          №{order.order_num} {order.user}
-        </h1>
-        <p className="text-sm text-green-400">
-          {type} | {deliveryType}
-        </p>
-      </div>
-      <div>
-        <div className="overflow-hidden rounded-md">
-          <div className="bg-slate-700 p-2">
-            <p>{order.tool}</p>
-            <p className="mt-2 flex items-center rounded-md bg-red-950 p-2">
-              <IoMdPin className="inline-block text-xl text-red-400" />
-              <span className="ml-1">{order.address}</span>
-            </p>
-            <p className="mt-2 flex items-center rounded-md bg-green-950 p-2">
-              <FaPhoneSquareAlt className="inline-block text-xl text-green-400" />
-              <a className="ml-1 text-blue-400" href={`tel:${order.phone}`}>
-                {order.phone}
-              </a>
-            </p>
+    <div className="rounded-lg bg-gray-900 p-4">
+      <div className="mb-3 flex items-start justify-between">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="text-lg font-bold text-gray-100">
+              #{order.order_num}
+            </span>
+            <span className="text-sm text-gray-400">{order.user}</span>
           </div>
-
-          <div className="mt-2 bg-slate-700 p-2">
-            <p>
-              <span>Оренда: </span>
-              <span className="text-green-400">{order.cost_rental}</span>
-            </p>
-            {order.cost_deposit && order.type !== "contract" && (
-              <p>
-                {order.type === "contract+deposit" && "Частковий залог: "}
-                {order.type === "deposit" && "Залог: "}
-                <span className="text-green-400">{order.cost_deposit}</span>
-              </p>
-            )}
-            <p>
-              <span>Доставка: </span>
-              <span className="text-green-400">{order.cost_delivery}</span>
-            </p>
-          </div>
+          <p className="mt-1 text-gray-300">{order.tool}</p>
         </div>
-        <p className="txt- mt-4 text-sm text-orange-400">{order.comment}</p>
+        <span className="rounded bg-gray-800/50 px-2 py-1 text-xs text-green-400">
+          {type} | {deliveryType}
+        </span>
       </div>
-    </>
+
+      <div className="mb-3 flex items-center gap-4">
+        <a
+          href={`tel:${order.phone}`}
+          className="flex items-center gap-2 rounded-md bg-gray-800/50 px-3 py-1.5 text-blue-400 transition-colors hover:bg-gray-800 hover:text-blue-300"
+        >
+          <FaPhoneSquareAlt className="text-base" />
+          <span>{order.phone}</span>
+        </a>
+        <a
+          href={order.coords}
+          target="_blank"
+          className="flex items-center gap-2 rounded-md bg-gray-800/50 px-3 py-1.5 text-red-400 transition-colors hover:bg-gray-800 hover:text-red-300"
+        >
+          <IoMdPin className="text-base" />
+          <span>{order.address}</span>
+        </a>
+      </div>
+
+      <div className="flex items-center gap-4 text-sm">
+        <div className="rounded-md bg-gray-800/50 px-3 py-1.5">
+          <span className="text-gray-400">Оренда:</span>
+          <span className="ml-1 text-green-400">{order.cost_rental}</span>
+        </div>
+        {order.cost_deposit && order.type !== "contract" && (
+          <div className="rounded-md bg-gray-800/50 px-3 py-1.5">
+            <span className="text-gray-400">
+              {order.type === "contract+deposit" ? "Залог:" : "Залог:"}
+            </span>
+            <span className="ml-1 text-green-400">{order.cost_deposit}</span>
+          </div>
+        )}
+        <div className="rounded-md bg-gray-800/50 px-3 py-1.5">
+          <span className="text-gray-400">Доставка:</span>
+          <span className="ml-1 text-green-400">{order.cost_delivery}</span>
+        </div>
+      </div>
+
+      {order.comment && (
+        <div className="mt-3 border-t border-gray-800 pt-3">
+          <p className="text-sm text-gray-400">Коментар:</p>
+          <p className="mt-1 text-gray-300">{order.comment}</p>
+        </div>
+      )}
+    </div>
   );
 };
 

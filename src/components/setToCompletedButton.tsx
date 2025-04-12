@@ -17,17 +17,17 @@ const SetToCompletedButton = ({ order, isLoading, setIsLoading }: Props) => {
     setIsLoading(false);
   };
 
+  const handleClick = () => {
+    setToCompleted(order._id);
+  };
+
   return (
     <button
-      title="Переместить в завершенные"
-      className={clsx(
-        "rounded-s-md bg-green-600 px-4 py-2 active:bg-green-700",
-        isLoading && "bg-gray-700",
-      )}
-      onClick={() => setToCompleted(order._id)}
+      onClick={handleClick}
       disabled={isLoading}
+      className="rounded-md bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-500 disabled:opacity-50"
     >
-      <FaCheck />
+      {isLoading ? "..." : "Завершити"}
     </button>
   );
 };

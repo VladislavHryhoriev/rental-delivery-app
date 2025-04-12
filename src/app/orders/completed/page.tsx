@@ -44,7 +44,7 @@ const Page = () => {
         <div
           key={order._id}
           className={clsx(
-            "line my-4 rounded-sm bg-gray-800 p-4",
+            "line my-4 rounded-sm bg-gray-800/50 p-4",
             order.status === "completed" && "line-through",
           )}
         >

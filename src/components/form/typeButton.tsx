@@ -9,19 +9,22 @@ type Props = {
 };
 
 const TypeButton = ({ text, type, activeType, setButtons }: Props) => {
+  const handleClick = () => {
+    setButtons((prev: IButtons) => ({
+      ...prev,
+      type: activeType,
+    }));
+  };
+
   return (
     <button
-      type="button"
-      className={clsx("w-full rounded-sm px-4 py-2", {
-        "bg-green-700": type === activeType,
-        "bg-gray-700 hover:bg-gray-800 active:bg-gray-800": type !== activeType,
-      })}
-      onClick={() =>
-        setButtons((prev: IButtons) => ({
-          ...prev,
-          type: activeType,
-        }))
-      }
+      onClick={handleClick}
+      className={clsx(
+        "w-full rounded-lg px-4 py-2 text-center transition-colors",
+        type === activeType
+          ? "bg-green-600 text-white"
+          : "bg-gray-700 text-gray-300 hover:bg-gray-600",
+      )}
     >
       {text}
     </button>

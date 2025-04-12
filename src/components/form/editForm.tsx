@@ -46,9 +46,9 @@ const EditForm = ({ order }: { order: IOrder }) => {
       <h1 className="text-center">Редагування доставки №{order.order_num}</h1>
       <form
         onSubmit={handleSubmit}
-        className="mt-4 flex flex-col gap-4 rounded-md bg-gray-800 p-4"
+        className="mt-4 flex flex-col gap-4 rounded-lg bg-gray-800 p-4 shadow-lg"
       >
-        <div className="rounded-md bg-slate-600 p-2">
+        <div className="rounded-lg bg-gray-800 p-2">
           <div className="mb-2 flex gap-2">
             <TypeButton
               type={buttons.type}
@@ -71,7 +71,7 @@ const EditForm = ({ order }: { order: IOrder }) => {
           />
         </div>
 
-        <div className="flex gap-2 rounded-md bg-slate-600 p-2">
+        <div className="flex gap-2 rounded-lg bg-gray-800 p-2">
           <DeliveryTypeButton
             deliveryType={buttons.deliveryType}
             setButtons={setButtons}
@@ -95,7 +95,7 @@ const EditForm = ({ order }: { order: IOrder }) => {
         <div className="flex gap-2">
           <button
             type="submit"
-            className="flex flex-[4] justify-center rounded-md bg-yellow-700 py-2 hover:bg-yellow-800 active:bg-yellow-900"
+            className="flex flex-[4] justify-center rounded-lg bg-yellow-600 py-2 transition-colors hover:bg-yellow-700"
           >
             <FaEdit className="text-2xl" />
           </button>

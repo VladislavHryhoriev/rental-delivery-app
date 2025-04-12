@@ -17,17 +17,17 @@ const SetToProcessButton = ({ order, isLoading, setIsLoading }: Props) => {
     setIsLoading(false);
   };
 
+  const handleClick = () => {
+    setToProcess(order._id);
+  };
+
   return (
     <button
-      title="Вернуть в активные"
-      className={clsx(
-        "rounded-s-md bg-yellow-600 px-4 py-2 active:bg-yellow-700",
-        isLoading && "bg-gray-700",
-      )}
-      onClick={() => setToProcess(order._id)}
+      onClick={handleClick}
       disabled={isLoading}
+      className="rounded-md bg-yellow-600 px-4 py-2 text-white transition-colors hover:bg-yellow-500 disabled:opacity-50"
     >
-      <IoMdArrowRoundBack />
+      {isLoading ? "..." : "В процес"}
     </button>
   );
 };

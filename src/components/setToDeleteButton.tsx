@@ -16,14 +16,17 @@ const SetToDeleteButton = ({ order, isLoading, setIsLoading }: Props) => {
     setIsLoading(false);
   };
 
+  const handleClick = () => {
+    setToDelete(order._id);
+  };
+
   return (
     <button
-      title="Удалить"
-      onClick={() => setToDelete(order._id)}
-      className="rounded-e-md bg-red-800 px-4 py-2 active:bg-red-900"
+      onClick={handleClick}
       disabled={isLoading}
+      className="rounded-md bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-500 disabled:opacity-50"
     >
-      <MdDeleteForever />
+      {isLoading ? "..." : "Видалити"}
     </button>
   );
 };

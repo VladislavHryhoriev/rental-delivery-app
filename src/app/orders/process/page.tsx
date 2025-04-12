@@ -49,25 +49,33 @@ const Page = () => {
 
   if (isFetching)
     return (
-      <div className="mt-8 flex justify-center">
+      <div className="flex h-[50vh] items-center justify-center">
         <BeatLoader color="#991b1b" />
       </div>
     );
 
   if (orders.length === 0) {
-    return <div className="text-center">Немає замовлень в процесі</div>;
+    return (
+      <div className="flex h-[50vh] items-center justify-center text-xl text-gray-400">
+        Немає замовлень в процесі
+      </div>
+    );
   }
 
   return (
-    <>
-      <div className="flex items-center justify-between">
-        <div>
-          <div>В процесі: {orders.length}шт</div>
-          <div>Відсортовані: {filteredOrders.length}шт</div>
+    <div className="mx-auto max-w-4xl space-y-6">
+      <div className="flex items-center justify-between rounded-lg bg-gray-900 p-4 shadow-lg">
+        <div className="space-y-1">
+          <div className="text-lg font-medium text-gray-200">
+            В процесі: {orders.length}шт
+          </div>
+          <div className="text-sm text-gray-400">
+            Відсортовані: {filteredOrders.length}шт
+          </div>
         </div>
         <select
           onChange={handleChange}
-          className="border-none bg-gray-700 p-1 active:outline-none"
+          className="rounded-md border border-gray-700 bg-gray-800 px-3 py-2 text-gray-200 focus:border-red-500 focus:outline-none"
           defaultValue="all"
         >
           <option value="all">Усі</option>
@@ -83,9 +91,12 @@ const Page = () => {
         </select>
       </div>
 
-      <div className="mt-4 flex flex-col gap-4">
+      <div className="space-y-4">
         {filteredOrders.map((order) => (
-          <div key={order._id} className={"rounded-md bg-gray-800 p-4"}>
+          <div
+            key={order._id}
+            className="rounded-lg bg-gray-800/50 p-6 shadow-lg transition-colors hover:bg-gray-900"
+          >
             <Order
               order={order}
               isLoading={isLoading}
@@ -94,7 +105,7 @@ const Page = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

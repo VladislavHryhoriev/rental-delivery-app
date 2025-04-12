@@ -29,7 +29,7 @@ const Input = ({
 
   return (
     <input
-      className={`block w-full bg-slate-600 px-4 py-2 text-center outline-none ${className}`}
+      className={`block w-full rounded-lg bg-gray-700 px-10 py-2 text-center outline-none transition-colors placeholder:text-gray-400 focus:bg-gray-600 ${className}`}
       type={type}
       name={name}
       placeholder={placeholder}
