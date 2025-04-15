@@ -1,4 +1,5 @@
 import { IOrder } from "@/models/order.model";
+import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const SetToEditButton = ({ order }: { order: IOrder }) => {
@@ -13,7 +14,7 @@ const SetToEditButton = ({ order }: { order: IOrder }) => {
       onClick={handleClick}
       className="rounded-md bg-gray-700 px-4 py-2 text-white transition-colors hover:bg-gray-600"
     >
-      Редагувати
+      <Pencil />
     </button>
   );
 };

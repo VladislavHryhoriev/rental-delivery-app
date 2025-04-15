@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import Loader from "@/components/loader";
-import Order from "@/components/order";
+import Loader from "@/components/shared/loader";
+import Order from "@/components/layout/order";
+import Empty from "@/components/shared/empty";
 import { useOrders } from "@/hooks/useOrders";
 import { IOrder } from "@/models/order.model";
 import filterOrders from "@/utils/filterOrders";
@@ -23,17 +24,13 @@ const Page = () => {
   if (isLoading) return <Loader />;
 
   if (!orders || orders.length === 0) {
-    return (
-      <div className="flex h-[50vh] items-center justify-center text-xl text-gray-400">
-        Немає замовлень в процесі
-      </div>
-    );
+    return <Empty title="Немає замовлень в процесі" />;
   }
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between rounded-lg bg-gray-900 p-4 shadow-lg">
-        <div className="space-y-1">
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 rounded-lg bg-gray-900 p-4 shadow-lg">
+        <div className="flex items-center gap-2">
           <div className="text-lg font-medium text-gray-200">
             В процесі: {orders.length}шт
           </div>

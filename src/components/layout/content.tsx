@@ -6,10 +6,10 @@ const queryClient = new QueryClient();
 
 const Content = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="mx-auto max-w-screen-md text-white">
+    <div className="text-white">
       <Header />
       <QueryClientProvider client={queryClient}>
-        <div className="p-4">{children}</div>
+        <div className="mx-auto max-w-screen-md p-4">{children}</div>
       </QueryClientProvider>
     </div>
   );

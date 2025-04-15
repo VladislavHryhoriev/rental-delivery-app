@@ -1,11 +1,12 @@
 import SetToEditButton from "@/components/setToEditButton";
 import { IOrder } from "@/models/order.model";
+import { ArrowLeft, Check } from "lucide-react";
 import moment from "moment";
 import { usePathname } from "next/navigation";
 import { FaMapLocationDot } from "react-icons/fa6";
-import OrderInfo from "./orderInfo";
-import SetStatusButton from "./setStatusButton";
-import SetToDeleteButton from "./setToDeleteButton";
+import OrderInfo from "../orderInfo";
+import SetStatusButton from "../setStatusButton";
+import SetToDeleteButton from "../setToDeleteButton";
 
 type Props = {
   order: IOrder;
@@ -26,7 +27,6 @@ const Order = ({ order }: Props) => {
           className="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
         >
           <FaMapLocationDot className="text-lg" />
-          <span className="text-sm">На карте</span>
         </a>
         <div className="flex items-center gap-2">
           {path.includes("process") && (
@@ -34,7 +34,7 @@ const Order = ({ order }: Props) => {
               <SetStatusButton
                 order={order}
                 status="completed"
-                title="Завершити"
+                icon={<Check />}
               />
               <SetToEditButton order={order} />
             </>
@@ -45,14 +45,14 @@ const Order = ({ order }: Props) => {
               <SetStatusButton
                 order={order}
                 status="process"
-                title="Відновити"
+                icon={<ArrowLeft />}
               />
               <SetToDeleteButton order={order} />
             </>
           )}
         </div>
         <div className="flex flex-col items-end">
-          <p className="text-lg font-medium text-blue-400">{time}</p>
+          <p className="text-sm font-medium text-blue-400">{time}</p>
           <p className="text-xs text-gray-500">{order.createdAt}</p>
         </div>
       </div>

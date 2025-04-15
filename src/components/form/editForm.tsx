@@ -4,10 +4,10 @@ import updateOrder from "@/utils/api/update-order";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import DeliveryTypeButton from "./deliveryTypeButton";
+import DeliveryTypeButton from "../shared/deliveryTypeButton";
+import TypeButton from "../shared/typeButton";
 import { IButtons, IFormData } from "./form";
 import Inputs from "./inputs";
-import TypeButton from "./typeButton";
 
 const EditForm = ({ order }: { order: IOrder }) => {
   const router = useRouter();
@@ -53,20 +53,20 @@ const EditForm = ({ order }: { order: IOrder }) => {
               type={buttons.type}
               setButtons={setButtons}
               activeType="contract"
-              text="Договір"
+              title="Договір"
             />
             <TypeButton
               type={buttons.type}
               setButtons={setButtons}
               activeType="deposit"
-              text="Залог"
+              title="Залог"
             />
           </div>
           <TypeButton
             type={buttons.type}
             setButtons={setButtons}
             activeType="contract+deposit"
-            text="Договір + Залог"
+            title="Договір + Залог"
           />
         </div>
 
@@ -75,13 +75,13 @@ const EditForm = ({ order }: { order: IOrder }) => {
             deliveryType={buttons.deliveryType}
             setButtons={setButtons}
             activeDeliveryType="forward"
-            text="Привезти"
+            title="Привезти"
           />
           <DeliveryTypeButton
             deliveryType={buttons.deliveryType}
             setButtons={setButtons}
             activeDeliveryType="back"
-            text="Забрати"
+            title="Забрати"
           />
         </div>
 

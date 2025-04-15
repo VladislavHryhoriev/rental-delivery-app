@@ -4,9 +4,9 @@ import moment from "moment-timezone";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { HiTemplate } from "react-icons/hi";
-import DeliveryTypeButton from "./deliveryTypeButton";
+import DeliveryTypeButton from "../shared/deliveryTypeButton";
+import TypeButton from "../shared/typeButton";
 import Inputs from "./inputs";
-import TypeButton from "./typeButton";
 
 export interface IFormData {
   datetime: { value: string; template: string };
@@ -77,7 +77,7 @@ const Form = () => {
       <h1 className="text-center">Створити нову доставку</h1>
       <form
         onSubmit={handleSubmit}
-        className="mt-4 flex flex-col gap-4 rounded-lg bg-gray-800 p-4 shadow-lg"
+        className="mt-4 flex flex-col gap-4 rounded-lg bg-gray-900 p-4 shadow-lg"
       >
         <div className="rounded-lg bg-gray-800 p-2">
           <div className="mb-2 flex gap-2">
@@ -85,20 +85,20 @@ const Form = () => {
               type={buttons.type}
               setButtons={setButtons}
               activeType="contract"
-              text="Договір"
+              title="Договір"
             />
             <TypeButton
               type={buttons.type}
               setButtons={setButtons}
               activeType="deposit"
-              text="Залог"
+              title="Залог"
             />
           </div>
           <TypeButton
             type={buttons.type}
             setButtons={setButtons}
             activeType="contract+deposit"
-            text="Договір + Залог"
+            title="Договір + Залог"
           />
         </div>
 
@@ -107,13 +107,13 @@ const Form = () => {
             deliveryType={buttons.deliveryType}
             setButtons={setButtons}
             activeDeliveryType="forward"
-            text="Привезти"
+            title="Привезти"
           />
           <DeliveryTypeButton
             deliveryType={buttons.deliveryType}
             setButtons={setButtons}
             activeDeliveryType="back"
-            text="Забрати"
+            title="Забрати"
           />
         </div>
 

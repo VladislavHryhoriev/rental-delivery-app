@@ -1,15 +1,15 @@
 import clsx from "clsx";
-import { IButtons } from "./form";
+import { IButtons } from "../form/form";
 
 type Props = {
-  text: string;
+  title: string;
   deliveryType: string;
   activeDeliveryType: "forward" | "back";
   setButtons: React.Dispatch<React.SetStateAction<IButtons>>;
 };
 
 const DeliveryTypeButton = ({
-  text,
+  title: text,
   deliveryType,
   activeDeliveryType,
   setButtons,
@@ -27,8 +27,8 @@ const DeliveryTypeButton = ({
       className={clsx(
         "w-full rounded-lg px-4 py-2 text-center transition-colors",
         deliveryType === activeDeliveryType
-          ? "bg-green-600 text-white"
-          : "bg-gray-700 text-gray-300 hover:bg-gray-600",
+          ? "bg-red-500/80 text-white"
+          : "bg-gray-700 text-gray-300 hover:bg-gray-700/50",
       )}
     >
       {text}

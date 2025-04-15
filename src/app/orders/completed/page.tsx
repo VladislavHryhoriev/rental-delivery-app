@@ -1,6 +1,7 @@
 "use client";
-import Loader from "@/components/loader";
-import Order from "@/components/order";
+import Loader from "@/components/shared/loader";
+import Order from "@/components/layout/order";
+import Empty from "@/components/shared/empty";
 import { useOrders } from "@/hooks/useOrders";
 import clsx from "clsx";
 
@@ -10,11 +11,7 @@ const Page = () => {
   if (isLoading) return <Loader />;
 
   if (!orders || orders.length === 0) {
-    return (
-      <div className="flex h-[50vh] items-center justify-center text-xl text-gray-400">
-        Немає завершених замовлень
-      </div>
-    );
+    return <Empty title="Немає завершених замовлень" />;
   }
 
   return (
