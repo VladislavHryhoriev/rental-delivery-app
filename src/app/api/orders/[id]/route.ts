@@ -25,8 +25,6 @@ export async function PUT(req: NextRequest) {
 
     await connectDB();
 
-    console.log(order);
-
     const updatedOrder = await Order.findOneAndUpdate(
       { _id: order._id },
       { ...order },

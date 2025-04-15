@@ -36,9 +36,15 @@ export const useUpdateOrder = () => {
       const json: Response = await res.json();
       return json;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["orders", "process"] });
-      queryClient.invalidateQueries({ queryKey: ["orders", "completed"] });
+    onSuccess: async () => {
+      await queryClient.refetchQueries({
+        queryKey: ["orders", "process"],
+        exact: true,
+      });
+      await queryClient.refetchQueries({
+        queryKey: ["orders", "completed"],
+        exact: true,
+      });
       router.replace(`/orders/process`);
     },
   });

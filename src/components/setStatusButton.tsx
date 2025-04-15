@@ -1,6 +1,6 @@
 import { useUpdateStatus } from "@/hooks/useUpdateStatus";
 import { IOrder } from "@/models/order.model";
-import { Ellipsis } from "lucide-react";
+import { Loader } from "lucide-react";
 
 type Props = {
   order: IOrder;
@@ -17,7 +17,7 @@ const SetStatusButton = ({ order, status, icon }: Props) => {
       disabled={isPending}
       className="rounded-md bg-green-500/90 px-4 py-2 text-white transition-colors hover:bg-green-700"
     >
-      {isPending ? <Ellipsis /> : icon}
+      {isPending ? <Loader className="animate-spin" /> : icon}
     </button>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
-import createOrder from "@/utils/api/create-order";
-import { LayoutTemplate, Plus } from "lucide-react";
+import { useCreateOrder } from "@/hooks/useCreateOrder";
+import { LayoutTemplate, Loader, Plus } from "lucide-react";
 import moment from "moment-timezone";
 import { useState } from "react";
 import DeliveryTypeButton from "../shared/deliveryTypeButton";
@@ -47,6 +47,7 @@ export interface IButtons {
 
 const Form = () => {
   const [inputValues, setInputValues] = useState<IFormData>(initialData);
+  const { mutate, isPending } = useCreateOrder();
   const [buttons, setButtons] = useState<IButtons>({
     status: "process",
     type: "contract",
@@ -67,7 +68,8 @@ const Form = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createOrder(inputValues, buttons);
+    mutate({ inputValues, buttons });
+
     setInputValues(initialData);
   };
 
@@ -134,7 +136,7 @@ const Form = () => {
             type="submit"
             className="flex flex-[4] justify-center rounded-lg bg-green-600 py-2 transition-colors hover:bg-green-700"
           >
-            <Plus />
+            {isPending ? <Loader className="animate-spin" /> : <Plus />}
           </button>
         </div>
       </form>

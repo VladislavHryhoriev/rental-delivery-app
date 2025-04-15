@@ -1,18 +1,14 @@
 "use client";
+import { useUpdateOrder } from "@/hooks/useUpdateOrder";
 import { IOrder } from "@/models/order.model";
-import updateOrder from "@/utils/api/update-order";
-import { Edit, SquarePen } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Loader, SquarePen } from "lucide-react";
+import { useState } from "react";
 import DeliveryTypeButton from "../shared/deliveryTypeButton";
 import TypeButton from "../shared/typeButton";
 import { IButtons, IFormData } from "./form";
 import Inputs from "./inputs";
-import { useUpdateOrder } from "@/hooks/useUpdateOrder";
 
 const EditForm = ({ order }: { order: IOrder }) => {
-  const router = useRouter();
-
   const initialInputValues = {
     datetime: { value: order.datetime, template: "" },
     order_num: { value: order.order_num, template: "" },
@@ -29,7 +25,7 @@ const EditForm = ({ order }: { order: IOrder }) => {
 
   const [inputValues, setInputValues] = useState<IFormData>(initialInputValues);
 
-  const { mutate } = useUpdateOrder();
+  const { mutate, isPending } = useUpdateOrder();
 
   const [buttons, setButtons] = useState<IButtons>({
     status: order.status,
@@ -100,7 +96,7 @@ const EditForm = ({ order }: { order: IOrder }) => {
             type="submit"
             className="flex flex-[4] justify-center rounded-lg bg-yellow-600 py-2 transition-colors hover:bg-yellow-700"
           >
-            <SquarePen />
+            {isPending ? <Loader className="animate-spin" /> : <SquarePen />}
           </button>
         </div>
       </form>
