@@ -1,19 +1,18 @@
-import { IButtons } from "@/components/form/form";
+import { IButtons, IFormData } from "@/components/form/form";
 
 export default async function createOrder(
-  e: React.FormEvent<HTMLFormElement>,
+  inputValues: IFormData,
   buttons: IButtons,
 ) {
-  const formData = new FormData(e.currentTarget);
-
-  for (const element in buttons) {
-    formData.append(element, buttons[element as keyof IButtons]);
-  }
-
-  const data = Object.fromEntries(formData);
+  const data = {
+    ...buttons,
+    ...Object.fromEntries(
+      Object.entries(inputValues).map(([key, value]) => [key, value.value]),
+    ),
+  };
 
   try {
-    const res = await fetch("/api/orders/create-order", {
+    const res = await fetch("/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

@@ -1,4 +1,4 @@
-import { IInitialInputValues } from "./form";
+import { IFormData } from "./form";
 
 type Props = {
   className?: string;
@@ -6,8 +6,8 @@ type Props = {
   name: string;
   placeholder: string;
   value: string;
-  inputValues: IInitialInputValues;
-  setInputValues: React.Dispatch<React.SetStateAction<IInitialInputValues>>;
+  inputValues: IFormData;
+  setInputValues: React.Dispatch<React.SetStateAction<IFormData>>;
 };
 
 const Input = ({

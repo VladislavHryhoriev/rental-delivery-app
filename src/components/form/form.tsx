@@ -8,7 +8,7 @@ import DeliveryTypeButton from "./deliveryTypeButton";
 import Inputs from "./inputs";
 import TypeButton from "./typeButton";
 
-export interface IInitialInputValues {
+export interface IFormData {
   datetime: { value: string; template: string };
   order_num: { value: string; template: string };
   user: { value: string; template: string };
@@ -23,7 +23,7 @@ export interface IInitialInputValues {
   [key: string]: { value: string; template: string };
 }
 
-const initialInputValues = {
+const initialData: IFormData = {
   datetime: {
     value: moment().tz("Europe/Kyiv").format("YYYY-MM-DDTHH:mm"),
     template: moment().tz("Europe/Kyiv").format("YYYY-MM-DDTHH:mm"),
@@ -37,7 +37,7 @@ const initialInputValues = {
   address: { value: "", template: "Вінниця, вул. Юності 10" },
   coords: { value: "", template: "https://maps.app.goo.gl/UTDh6coFXgzkz117A" },
   phone: { value: "", template: "0681234567" },
-  comment: { value: "", template: "Что-то сделать сегодня, что-то завтра..." },
+  comment: { value: "", template: "Тестовий коментар..." },
 };
 
 export interface IButtons {
@@ -47,9 +47,7 @@ export interface IButtons {
 }
 
 const Form = () => {
-  const [inputValues, setInputValues] =
-    useState<IInitialInputValues>(initialInputValues);
-
+  const [inputValues, setInputValues] = useState<IFormData>(initialData);
   const [buttons, setButtons] = useState<IButtons>({
     status: "process",
     type: "contract",
@@ -57,12 +55,12 @@ const Form = () => {
   });
 
   const handleShowTemplate = () => {
-    for (const node in initialInputValues) {
+    for (const node in initialData) {
       setInputValues((prev) => ({
         ...prev,
         [node]: {
-          value: (initialInputValues as IInitialInputValues)[node].template,
-          template: (initialInputValues as IInitialInputValues)[node].template,
+          value: (initialData as IFormData)[node].template,
+          template: (initialData as IFormData)[node].template,
         },
       }));
     }
@@ -70,9 +68,8 @@ const Form = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createOrder(e, buttons);
-    // reset
-    setInputValues(initialInputValues);
+    await createOrder(inputValues, buttons);
+    setInputValues(initialData);
   };
 
   return (

@@ -1,63 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
+import Loader from "@/components/loader";
 import Order from "@/components/order";
+import { useOrders } from "@/hooks/useOrders";
 import { IOrder } from "@/models/order.model";
-import getAllOrders from "@/utils/api/get-all-orders";
-import moment from "moment";
+import filterOrders from "@/utils/filterOrders";
 import { useEffect, useState } from "react";
-import { BeatLoader } from "react-spinners";
 
 const Page = () => {
-  const [orders, setOrders] = useState<IOrder[]>([]);
+  const { data: orders, isLoading } = useOrders("process");
   const [filteredOrders, setFilteredOrders] = useState<IOrder[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isFetching, setIsFetching] = useState(true);
+  const [selectedFilter, setSelectedFilter] = useState("all");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const orders = await getAllOrders("process");
-      setOrders(orders);
-      setFilteredOrders(orders);
-      setIsFetching(false);
-    };
-
-    fetchData();
-  }, [isLoading]);
+    if (orders) setFilteredOrders(filterOrders(selectedFilter, orders));
+  }, [orders, selectedFilter]);
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-    const today = moment().format("YYYY-MM-DD");
-    const tomorrow = moment().add(1, "day").format("YYYY-MM-DD");
-    const afterTomorrow = moment().add(2, "day").format("YYYY-MM-DD");
-
-    if (target.value === "all") {
-      setFilteredOrders(orders);
-    } else {
-      const filtered = orders.filter((order) => {
-        const orderDate = moment(order.datetime).format("YYYY-MM-DD");
-
-        if (target.value === "today") return orderDate === today;
-        if (target.value === "tomorrow") return orderDate === tomorrow;
-        if (target.value === "after-tomorrow")
-          return orderDate === afterTomorrow;
-
-        if (target.value === "forward") return order.deliveryType === "forward";
-        if (target.value === "back") return order.deliveryType === "back";
-      });
-      setFilteredOrders(filtered);
-    }
+    setSelectedFilter(target.value);
   };
 
-  if (isFetching)
-    return (
-      <div className="flex h-[50vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <BeatLoader color="#4ade80" />
-          <span className="text-gray-400">Завантаження...</span>
-        </div>
-      </div>
-    );
+  if (isLoading) return <Loader />;
 
-  if (orders.length === 0) {
+  if (!orders || orders.length === 0) {
     return (
       <div className="flex h-[50vh] items-center justify-center text-xl text-gray-400">
         Немає замовлень в процесі
@@ -66,7 +31,7 @@ const Page = () => {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6">
+    <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between rounded-lg bg-gray-900 p-4 shadow-lg">
         <div className="space-y-1">
           <div className="text-lg font-medium text-gray-200">
@@ -87,25 +52,27 @@ const Page = () => {
             <option value="tomorrow">Завтра</option>
             <option value="after-tomorrow">Післязавтра</option>
           </optgroup>
-          <optgroup label="По типу:">
+          <optgroup label="По типу доставки:">
             <option value="forward">Привезти</option>
             <option value="back">Забрати</option>
+          </optgroup>
+          <optgroup label="По типу заказа:">
+            <option value="contract">Договір</option>
+            <option value="deposit">Залог</option>
+            <option value="contract+deposit">Договір + Залог</option>
+          </optgroup>
+          <optgroup label="Комбіновані:">
+            <option value="today+forward">Сьогодні + Привезти</option>
+            <option value="today+back">Сьогодні + Забрати</option>
+            <option value="tomorrow+forward">Завтра + Привезти</option>
+            <option value="tomorrow+back">Завтра + Забрати</option>
           </optgroup>
         </select>
       </div>
 
-      <div className="space-y-4">
+      <div className="flex flex-col gap-4">
         {filteredOrders.map((order) => (
-          <div
-            key={order._id}
-            className="rounded-lg bg-gray-800/50 p-6 shadow-lg transition-colors hover:bg-gray-900"
-          >
-            <Order
-              order={order}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-            />
-          </div>
+          <Order key={order._id} order={order} />
         ))}
       </div>
     </div>

@@ -4,22 +4,19 @@ import moment from "moment";
 import { usePathname } from "next/navigation";
 import { FaMapLocationDot } from "react-icons/fa6";
 import OrderInfo from "./orderInfo";
-import SetToCompletedButton from "./setToCompletedButton";
+import SetStatusButton from "./setStatusButton";
 import SetToDeleteButton from "./setToDeleteButton";
-import SetToProcessButton from "./setToProcessButton";
 
 type Props = {
   order: IOrder;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Order = ({ order, isLoading, setIsLoading }: Props) => {
+const Order = ({ order }: Props) => {
   const time = moment(order.datetime).format("HH:mm DD.MM");
   const path = usePathname();
 
   return (
-    <div className="space-y-4">
+    <div className="rounded-lg bg-gray-800/50 p-6 shadow-lg transition-colors hover:bg-gray-900">
       <OrderInfo order={order} />
       <div className="flex items-center justify-between border-t border-gray-700 pt-4">
         <a
@@ -34,10 +31,10 @@ const Order = ({ order, isLoading, setIsLoading }: Props) => {
         <div className="flex items-center gap-2">
           {path.includes("process") && (
             <>
-              <SetToCompletedButton
+              <SetStatusButton
                 order={order}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
+                status="completed"
+                title="Завершити"
               />
               <SetToEditButton order={order} />
             </>
@@ -45,16 +42,12 @@ const Order = ({ order, isLoading, setIsLoading }: Props) => {
 
           {path.includes("completed") && (
             <>
-              <SetToProcessButton
+              <SetStatusButton
                 order={order}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
+                status="process"
+                title="Відновити"
               />
-              <SetToDeleteButton
-                order={order}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-              />
+              <SetToDeleteButton order={order} />
             </>
           )}
         </div>

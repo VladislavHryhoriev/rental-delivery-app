@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import DeliveryTypeButton from "./deliveryTypeButton";
-import { IButtons, IInitialInputValues } from "./form";
+import { IButtons, IFormData } from "./form";
 import Inputs from "./inputs";
 import TypeButton from "./typeButton";
 
@@ -26,8 +26,7 @@ const EditForm = ({ order }: { order: IOrder }) => {
     comment: { value: order.comment, template: "" },
   };
 
-  const [inputValues, setInputValues] =
-    useState<IInitialInputValues>(initialInputValues);
+  const [inputValues, setInputValues] = useState<IFormData>(initialInputValues);
 
   const [buttons, setButtons] = useState<IButtons>({
     status: order.status,

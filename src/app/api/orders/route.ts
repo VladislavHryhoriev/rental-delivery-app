@@ -3,6 +3,21 @@ import Order, { IOrder, IOrderEX } from "@/models/order.model";
 import moment from "moment-timezone";
 import { NextRequest, NextResponse } from "next/server";
 
+// get all orders
+export async function GET(req: NextRequest) {
+  try {
+    await connectDB();
+    const status = req.nextUrl.searchParams.get("status");
+    const orders = await Order.find({ status: status });
+
+    return NextResponse.json(orders, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(`error: ${error}`, { status: 500 });
+  }
+}
+
+// create order
 export async function POST(req: NextRequest) {
   try {
     const body: IOrder = await req.json();
@@ -30,7 +45,7 @@ export async function POST(req: NextRequest) {
 
     await order.save();
 
-    return NextResponse.json({ created: order });
+    return NextResponse.json({ created: order }, { status: 201 });
   } catch (error) {
     console.log(error);
     return NextResponse.json({ error: `${error}` }, { status: 500 });

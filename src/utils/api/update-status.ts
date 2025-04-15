@@ -3,10 +3,10 @@ export default async function updateStatus(
   status: "process" | "completed",
 ) {
   try {
-    const res = await fetch(`/api/orders/update-status`, {
-      method: "PUT",
+    const res = await fetch(`/api/orders/${id}/status`, {
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, status }),
+      body: JSON.stringify({ status }),
     });
 
     const ok = await res.json();

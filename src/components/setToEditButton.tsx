@@ -1,6 +1,5 @@
 import { IOrder } from "@/models/order.model";
 import { useRouter } from "next/navigation";
-import { MdEdit } from "react-icons/md";
 
 const SetToEditButton = ({ order }: { order: IOrder }) => {
   const router = useRouter();

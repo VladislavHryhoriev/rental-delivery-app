@@ -9,12 +9,12 @@ import {
 } from "react-icons/fa6";
 import { IoTime } from "react-icons/io5";
 import { MdDriveFileRenameOutline } from "react-icons/md";
-import { IButtons, IInitialInputValues } from "./form";
+import { IButtons, IFormData } from "./form";
 
 type Props = {
   buttons: IButtons;
-  inputValues: IInitialInputValues;
-  setInputValues: React.Dispatch<React.SetStateAction<IInitialInputValues>>;
+  inputValues: IFormData;
+  setInputValues: React.Dispatch<React.SetStateAction<IFormData>>;
 };
 
 const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {

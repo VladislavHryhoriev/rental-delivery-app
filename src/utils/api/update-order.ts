@@ -15,7 +15,7 @@ export default async function updateOrder(
   const data = Object.fromEntries(formData);
 
   try {
-    const res = await fetch("/api/orders/update-order", {
+    const res = await fetch(`/api/orders/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

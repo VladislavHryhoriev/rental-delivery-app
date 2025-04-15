@@ -1,40 +1,15 @@
 "use client";
+import Loader from "@/components/loader";
 import Order from "@/components/order";
-import { IOrder } from "@/models/order.model";
-import getAllOrders from "@/utils/api/get-all-orders";
+import { useOrders } from "@/hooks/useOrders";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
-import { BeatLoader } from "react-spinners";
 
 const Page = () => {
-  const [orders, setOrders] = useState<IOrder[]>([]);
-  const [filteredOrders, setFilteredOrders] = useState<IOrder[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isFetching, setIsFetching] = useState(true);
+  const { data: orders, isLoading } = useOrders("completed");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const orders = await getAllOrders("completed");
-      setOrders(orders);
-      setFilteredOrders(orders);
-      setIsFetching(false);
-    };
+  if (isLoading) return <Loader />;
 
-    fetchData();
-  }, [isLoading]);
-
-  if (isFetching) {
-    return (
-      <div className="flex h-[50vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <BeatLoader color="#4ade80" />
-          <span className="text-gray-400">Завантаження...</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (orders.length === 0) {
+  if (!orders || orders.length === 0) {
     return (
       <div className="flex h-[50vh] items-center justify-center text-xl text-gray-400">
         Немає завершених замовлень
@@ -44,23 +19,9 @@ const Page = () => {
 
   return (
     <>
-      <div className="mb-4">
-        <div>Завершені: {filteredOrders.length}шт</div>
-      </div>
-      {filteredOrders.map((order) => (
-        <div
-          key={order._id}
-          className={clsx(
-            "line my-4 rounded-sm bg-gray-800/50 p-4",
-            order.status === "completed" && "line-through",
-          )}
-        >
-          <Order
-            order={order}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-          />
-        </div>
+      <div className="mb-4">Завершені: {orders.length}шт</div>
+      {orders.map((order) => (
+        <Order key={order._id} order={order} />
       ))}
     </>
   );

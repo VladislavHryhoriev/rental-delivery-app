@@ -1,55 +1,40 @@
 "use client";
 import clsx from "clsx";
+import { CalendarCheck, CirclePlus, Hourglass } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaCalendarCheck, FaHourglassEnd } from "react-icons/fa";
-import { FaCirclePlus } from "react-icons/fa6";
 
 const navigation = [
-  {
-    name: "Активные",
-    href: "/orders/process",
-    icon: <FaHourglassEnd />,
-  },
-  {
-    name: "Завершенные",
-    href: "/orders/completed",
-    icon: <FaCalendarCheck />,
-  },
-  {
-    name: "New Delivery",
-    href: "/orders/create-order",
-    icon: <FaCirclePlus />,
-  },
+  { name: "Активні", href: "/orders/process", icon: <Hourglass /> },
+  { name: "Завершені", href: "/orders/completed", icon: <CalendarCheck /> },
+  { name: "Нова доставка", href: "/orders/create", icon: <CirclePlus /> },
 ];
 
-const Header = ({ children }: { children: React.ReactNode }) => {
+const Header = () => {
   const path = usePathname();
+
   return (
-    <div className="mx-auto max-w-[768px] text-white">
-      <header className="bg-gray-800/50 p-4 text-2xl text-indigo-50 shadow-lg">
-        <nav className="flex justify-between">
+    <header className="sticky top-0 z-50 bg-gray-900">
+      <nav className="mx-auto max-w-screen-md">
+        <div className="grid grid-cols-3 items-center justify-between">
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={clsx(
-                "rounded-lg px-8 py-2 transition-all hover:bg-gray-800",
-                path === item.href && "bg-gray-800",
+                "flex flex-col items-center gap-1 px-6 py-2",
+                path === item.href
+                  ? "bg-red-500/90 text-white"
+                  : "text-gray-400 hover:bg-gray-800 hover:text-white",
               )}
             >
-              {item.icon}
+              <span className="">{item.icon}</span>
+              <span className="text-xs font-medium">{item.name}</span>
             </Link>
           ))}
-
-          {/* <Link href="/sign" className="rounded-sm bg-red-900 px-8 py-2">
-            <BiLogIn />
-            <BiLogOut />
-          </Link> */}
-        </nav>
-      </header>
-      <div className="p-4">{children}</div>
-    </div>
+        </div>
+      </nav>
+    </header>
   );
 };
 

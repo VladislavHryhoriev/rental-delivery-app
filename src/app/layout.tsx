@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import Header from "../components/header";
+import Content from "../components/content";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -8,33 +8,33 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   applicationName: "rental-delivery",
   title: {
-    default: "rental-app",
-    template: "%s | rental-app",
+    default: "Rental-app",
+    template: "%s | Rental-app",
   },
   description: "Rental delivery app",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "rental-app",
+    title: "Rental-app",
   },
   formatDetection: {
     telephone: false,
   },
   openGraph: {
     type: "website",
-    siteName: "rental-app",
+    siteName: "Rental-app",
     title: {
-      default: "rental-app",
-      template: "%s | rental-app",
+      default: "Rental-app",
+      template: "%s | Rental-app",
     },
     description: "Rental delivery app",
   },
   twitter: {
     card: "summary",
     title: {
-      default: "rental-app",
-      template: "%s | rental-app",
+      default: "Rental-app",
+      template: "%s | Rental-app",
     },
     description: "Rental delivery app",
   },
@@ -50,9 +50,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang="ru" className="dark">
       <body className={`${inter.className} bg-gray-950`}>
-        <Header>{children}</Header>
+        <Content>{children}</Content>
       </body>
     </html>
   );
