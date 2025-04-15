@@ -13,7 +13,7 @@ const SetToDeleteButton = ({ order }: Props) => {
     <button
       onClick={() => mutate(order._id)}
       disabled={isPending}
-      className="rounded-md bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-700 disabled:opacity-50"
+      className="rounded-md bg-red-500/90 px-4 py-2 text-white transition-colors hover:bg-red-700 disabled:opacity-50"
     >
       {isPending ? <Ellipsis /> : <Trash2 />}
     </button>

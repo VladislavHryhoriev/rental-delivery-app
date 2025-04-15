@@ -1,7 +1,6 @@
 import { IOrder } from "@/models/order.model";
+import { MapPin, Smartphone } from "lucide-react";
 import Link from "next/link";
-import { FaPhoneSquareAlt } from "react-icons/fa";
-import { IoMdPin } from "react-icons/io";
 
 const types = {
   contract: "Договір",
@@ -37,7 +36,7 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
           href={`tel:${order.phone}`}
           className="flex items-center gap-2 rounded-md bg-gray-800/50 px-3 py-1.5 text-blue-400 transition-colors hover:bg-gray-800 hover:text-blue-300"
         >
-          <FaPhoneSquareAlt className="text-base" />
+          <Smartphone />
           <span>{order.phone}</span>
         </Link>
         <Link
@@ -46,12 +45,12 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
           rel="noreferrer noopener"
           className="flex items-center gap-2 rounded-md bg-gray-800/50 px-3 py-1.5 text-red-400 transition-colors hover:bg-gray-800 hover:text-red-300"
         >
-          <IoMdPin className="text-base" />
+          <MapPin />
           <span>{order.address}</span>
         </Link>
       </div>
 
-      <div className="flex items-center gap-4 text-sm *:rounded-md *:bg-gray-800/50 *:px-3 *:py-1.5">
+      <div className="flex flex-wrap items-center gap-4 text-sm *:rounded-md *:bg-gray-800/50 *:px-3 *:py-1.5">
         <div>
           <span className="text-gray-400">Оренда:</span>
           <span className="ml-1 text-green-400">{order.cost_rental}</span>
@@ -59,7 +58,9 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
         {order.cost_deposit && order.type !== "contract" && (
           <div>
             <span className="text-gray-400">
-              {order.type === "contract+deposit" ? "Залог:" : "Залог:"}
+              {order.type === "contract+deposit"
+                ? "Частоковий Залог:"
+                : "Залог:"}
             </span>
             <span className="ml-1 text-green-400">{order.cost_deposit}</span>
           </div>

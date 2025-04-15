@@ -15,7 +15,7 @@ const SetStatusButton = ({ order, status, icon }: Props) => {
     <button
       onClick={() => mutate({ id: order._id, status })}
       disabled={isPending}
-      className="rounded-md bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700"
+      className="rounded-md bg-green-500/90 px-4 py-2 text-white transition-colors hover:bg-green-700"
     >
       {isPending ? <Ellipsis /> : icon}
     </button>

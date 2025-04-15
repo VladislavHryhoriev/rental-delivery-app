@@ -1,9 +1,8 @@
 import SetToEditButton from "@/components/setToEditButton";
 import { IOrder } from "@/models/order.model";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, Check, MapPinned } from "lucide-react";
 import moment from "moment";
 import { usePathname } from "next/navigation";
-import { FaMapLocationDot } from "react-icons/fa6";
 import OrderInfo from "../orderInfo";
 import SetStatusButton from "../setStatusButton";
 import SetToDeleteButton from "../setToDeleteButton";
@@ -26,7 +25,7 @@ const Order = ({ order }: Props) => {
           target="_blank"
           className="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
         >
-          <FaMapLocationDot className="text-lg" />
+          <MapPinned />
         </a>
         <div className="flex items-center gap-2">
           {path.includes("process") && (
