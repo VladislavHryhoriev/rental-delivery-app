@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import Loader from "@/components/shared/loader";
 import Order from "@/components/layout/order";
 import Empty from "@/components/shared/empty";
+import Loader from "@/components/shared/loader";
 import { useOrders } from "@/hooks/useOrders";
 import { IOrder } from "@/models/order.model";
 import filterOrders from "@/utils/filterOrders";

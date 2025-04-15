@@ -1,9 +1,8 @@
 "use client";
 import createOrder from "@/utils/api/create-order";
+import { LayoutTemplate, Plus } from "lucide-react";
 import moment from "moment-timezone";
 import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
-import { HiTemplate } from "react-icons/hi";
 import DeliveryTypeButton from "../shared/deliveryTypeButton";
 import TypeButton from "../shared/typeButton";
 import Inputs from "./inputs";
@@ -79,7 +78,7 @@ const Form = () => {
         onSubmit={handleSubmit}
         className="mt-4 flex flex-col gap-4 rounded-lg bg-gray-900 p-4 shadow-lg"
       >
-        <div className="rounded-lg bg-gray-800 p-2">
+        <div className="rounded-lg p-2">
           <div className="mb-2 flex gap-2">
             <TypeButton
               type={buttons.type}
@@ -102,7 +101,7 @@ const Form = () => {
           />
         </div>
 
-        <div className="flex gap-2 rounded-lg bg-gray-800 p-2">
+        <div className="flex gap-2 rounded-lg p-2">
           <DeliveryTypeButton
             deliveryType={buttons.deliveryType}
             setButtons={setButtons}
@@ -129,13 +128,13 @@ const Form = () => {
             className="flex flex-1 justify-center rounded-lg bg-blue-600 py-2 transition-colors hover:bg-blue-700"
             onClick={handleShowTemplate}
           >
-            <HiTemplate className="text-2xl" />
+            <LayoutTemplate />
           </button>
           <button
             type="submit"
             className="flex flex-[4] justify-center rounded-lg bg-green-600 py-2 transition-colors hover:bg-green-700"
           >
-            <FaPlus className="text-2xl" />
+            <Plus />
           </button>
         </div>
       </form>

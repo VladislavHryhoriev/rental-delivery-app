@@ -1,7 +1,6 @@
 import { IFormData } from "./form";
 
 type Props = {
-  className?: string;
   type?: string | "text";
   name: string;
   placeholder: string;
@@ -11,9 +10,8 @@ type Props = {
 };
 
 const Input = ({
-  className,
-  type,
-  name = "text",
+  type = "text",
+  name,
   placeholder,
   value,
   inputValues,
@@ -29,7 +27,7 @@ const Input = ({
 
   return (
     <input
-      className={`block w-full rounded-lg bg-gray-700 px-10 py-2 text-center outline-none transition-colors placeholder:text-gray-400 focus:bg-gray-600 ${className}`}
+      className="block w-full rounded-lg bg-gray-800 px-10 py-3 text-center outline-none transition-colors placeholder:text-gray-400 focus:bg-gray-700/70"
       type={type}
       name={name}
       placeholder={placeholder}

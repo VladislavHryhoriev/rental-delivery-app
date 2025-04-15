@@ -15,20 +15,18 @@ const OrderInfo = ({ order }: { order: IOrder }) => {
   const deliveryType = deliveryTypes[order.deliveryType];
 
   return (
-    <div className="flex flex-col gap-3 rounded-lg bg-gray-900">
-      <div className="">
-        <div>
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-lg font-bold text-gray-100">
-              #{order.order_num}
-            </span>
-            <span className="rounded-md bg-green-900/30 px-2 py-1 text-xs text-green-400">
-              {type} | {deliveryType}
-            </span>
-          </div>
-          <span className="text-sm text-gray-400">{order.user}</span>
-          <p className="mt-1 text-gray-300">{order.tool}</p>
-        </div>
+    <div className="flex flex-col gap-6 rounded-lg bg-gray-900">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-lg font-bold text-gray-100">
+          №{order.order_num}
+        </span>
+        <span className="rounded-md bg-green-900/30 px-2 py-1 text-xs text-green-400">
+          {type} | {deliveryType}
+        </span>
+      </div>
+      <div>
+        <span className="text-gray-300">{order.user}</span>
+        <p className="mt-1 text-xs text-gray-400">{order.tool}</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-4">

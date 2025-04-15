@@ -1,9 +1,8 @@
 "use client";
-import Loader from "@/components/shared/loader";
 import Order from "@/components/layout/order";
 import Empty from "@/components/shared/empty";
+import Loader from "@/components/shared/loader";
 import { useOrders } from "@/hooks/useOrders";
-import clsx from "clsx";
 
 const Page = () => {
   const { data: orders, isLoading } = useOrders("completed");
@@ -17,9 +16,11 @@ const Page = () => {
   return (
     <>
       <div className="mb-4">Завершені: {orders.length}шт</div>
-      {orders.map((order) => (
-        <Order key={order._id} order={order} />
-      ))}
+      <div className="flex flex-col gap-4">
+        {orders.map((order) => (
+          <Order key={order._id} order={order} />
+        ))}
+      </div>
     </>
   );
 };

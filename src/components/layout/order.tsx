@@ -1,6 +1,6 @@
 import SetToEditButton from "@/components/setToEditButton";
 import { IOrder } from "@/models/order.model";
-import { ArrowLeft, Check, MapPinned } from "lucide-react";
+import { Check, Undo2 } from "lucide-react";
 import moment from "moment";
 import { usePathname } from "next/navigation";
 import OrderInfo from "../orderInfo";
@@ -16,17 +16,13 @@ const Order = ({ order }: Props) => {
   const path = usePathname();
 
   return (
-    <div className="rounded-lg bg-gray-800/50 p-6 shadow-lg transition-colors hover:bg-gray-900">
+    <div className="rounded-lg bg-gray-900 p-6">
       <OrderInfo order={order} />
-      <div className="flex items-center justify-between border-t border-gray-700 pt-4">
-        <a
-          title="Открыть на карте"
-          href={order.coords}
-          target="_blank"
-          className="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
-        >
-          <MapPinned />
-        </a>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm font-medium text-blue-400">{time}</p>
+          <p className="text-xs text-gray-700">{order.createdAt}</p>
+        </div>
         <div className="flex items-center gap-2">
           {path.includes("process") && (
             <>
@@ -44,15 +40,11 @@ const Order = ({ order }: Props) => {
               <SetStatusButton
                 order={order}
                 status="process"
-                icon={<ArrowLeft />}
+                icon={<Undo2 />}
               />
               <SetToDeleteButton order={order} />
             </>
           )}
-        </div>
-        <div className="flex flex-col items-end">
-          <p className="text-sm font-medium text-blue-400">{time}</p>
-          <p className="text-xs text-gray-500">{order.createdAt}</p>
         </div>
       </div>
     </div>

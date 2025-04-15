@@ -1,14 +1,16 @@
 import Input from "@/components/form/input";
 import clsx from "clsx";
-import { AiOutlineFieldNumber } from "react-icons/ai";
-import { FaCommentAlt, FaDollarSign, FaTools } from "react-icons/fa";
 import {
-  FaLocationCrosshairs,
-  FaLocationDot,
-  FaSquarePhone,
-} from "react-icons/fa6";
-import { IoTime } from "react-icons/io5";
-import { MdDriveFileRenameOutline } from "react-icons/md";
+  Clock,
+  DollarSign,
+  Drill,
+  Hash,
+  Link,
+  MapPin,
+  MessageSquareQuote,
+  Smartphone,
+  User,
+} from "lucide-react";
 import { IButtons, IFormData } from "./form";
 
 type Props = {
@@ -25,9 +27,9 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
           <h2 className="text-center text-lg font-medium text-gray-300">
             Основна інформація
           </h2>
-          <div className="space-y-2">
-            <div className="relative flex items-center">
-              <IoTime className="absolute left-3 text-2xl text-gray-400" />
+          <div className="space-y-2 *:relative *:flex *:items-center">
+            <div>
+              <Clock className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 type="datetime-local"
                 placeholder="Дата та час"
@@ -37,8 +39,8 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
                 setInputValues={setInputValues}
               />
             </div>
-            <div className="relative flex items-center">
-              <AiOutlineFieldNumber className="absolute left-3 text-2xl text-gray-400" />
+            <div>
+              <Hash className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 placeholder="Номер замовлення"
                 name="order_num"
@@ -47,8 +49,8 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
                 setInputValues={setInputValues}
               />
             </div>
-            <div className="relative flex items-center">
-              <MdDriveFileRenameOutline className="absolute left-3 text-2xl text-gray-400" />
+            <div>
+              <User className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 placeholder="ПІБ"
                 name="user"
@@ -57,8 +59,8 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
                 setInputValues={setInputValues}
               />
             </div>
-            <div className="relative flex items-center">
-              <FaTools className="absolute left-3 text-2xl text-gray-400" />
+            <div>
+              <Drill className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 placeholder="Інструмент"
                 name="tool"
@@ -74,9 +76,9 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
           <h2 className="text-center text-lg font-medium text-gray-300">
             Адреса
           </h2>
-          <div className="space-y-2">
-            <div className="relative flex items-center">
-              <FaLocationDot className="absolute left-3 text-2xl text-gray-400" />
+          <div className="space-y-2 *:relative *:flex *:items-center">
+            <div>
+              <MapPin className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 placeholder="Адреса доставки"
                 name="address"
@@ -85,8 +87,8 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
                 setInputValues={setInputValues}
               />
             </div>
-            <div className="relative flex items-center">
-              <FaLocationCrosshairs className="absolute left-3 text-2xl text-gray-400" />
+            <div>
+              <Link className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 placeholder="Посилання на карту"
                 name="coords"
@@ -95,8 +97,8 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
                 setInputValues={setInputValues}
               />
             </div>
-            <div className="relative flex items-center">
-              <FaSquarePhone className="absolute left-3 text-2xl text-gray-400" />
+            <div>
+              <Smartphone className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 placeholder="Номер телефону"
                 name="phone"
@@ -112,9 +114,9 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
           <h2 className="text-center text-lg font-medium text-gray-300">
             Вартість
           </h2>
-          <div className="space-y-2">
-            <div className="relative flex items-center">
-              <FaDollarSign className="absolute left-3 text-2xl text-gray-400" />
+          <div className="space-y-2 *:relative *:flex *:items-center">
+            <div>
+              <DollarSign className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 placeholder="Вартість доставки"
                 name="cost_delivery"
@@ -123,8 +125,8 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
                 setInputValues={setInputValues}
               />
             </div>
-            <div className="relative flex items-center">
-              <FaDollarSign className="absolute left-3 text-2xl text-gray-400" />
+            <div>
+              <DollarSign className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 placeholder="Вартість оренди"
                 name="cost_rental"
@@ -134,12 +136,8 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
               />
             </div>
 
-            <div
-              className={clsx("relative flex items-center", {
-                hidden: buttons.type === "contract",
-              })}
-            >
-              <FaDollarSign className="absolute left-3 text-2xl text-gray-400" />
+            <div className={clsx({ hidden: buttons.type === "contract" })}>
+              <DollarSign className="absolute left-3 text-2xl text-gray-400" />
               <Input
                 placeholder={
                   buttons.type === "contract+deposit"
@@ -160,9 +158,9 @@ const Inputs = ({ buttons, inputValues, setInputValues }: Props) => {
             Коментар
           </h2>
           <div className="relative">
-            <FaCommentAlt className="absolute left-3 top-3 text-2xl text-gray-400" />
+            <MessageSquareQuote className="absolute left-3 top-3 text-2xl text-gray-400" />
             <textarea
-              className="w-full resize-none rounded-lg bg-gray-700 px-10 py-2 text-center outline-none transition-colors placeholder:text-gray-400 focus:bg-gray-600"
+              className="w-full resize-none rounded-lg bg-gray-800 px-10 py-2 text-center outline-none transition-colors placeholder:text-gray-400 focus:bg-gray-600"
               rows={2}
               placeholder="Коментар"
               name="comment"
