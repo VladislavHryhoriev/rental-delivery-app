@@ -5,9 +5,9 @@ import Loader from "@/components/shared/loader";
 import { useOrders } from "@/hooks/useOrders";
 
 const Page = () => {
-  const { data: orders, isLoading } = useOrders("completed");
+  const { data: orders, isLoading, isFetching } = useOrders("completed");
 
-  if (isLoading) return <Loader />;
+  if (isLoading || isFetching) return <Loader />;
 
   if (!orders || orders.length === 0) {
     return <Empty title="Немає завершених замовлень" />;

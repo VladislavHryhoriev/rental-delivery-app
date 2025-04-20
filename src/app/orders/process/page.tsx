@@ -9,7 +9,7 @@ import filterOrders from "@/utils/filterOrders";
 import { useEffect, useState } from "react";
 
 const Page = () => {
-  const { data: orders, isLoading } = useOrders("process");
+  const { data: orders, isLoading, isFetching } = useOrders("process");
   const [filteredOrders, setFilteredOrders] = useState<IOrder[]>([]);
   const [selectedFilter, setSelectedFilter] = useState("all");
 
@@ -21,7 +21,7 @@ const Page = () => {
     setSelectedFilter(target.value);
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading || isFetching) return <Loader />;
 
   if (!orders || orders.length === 0) {
     return <Empty title="Немає замовлень в процесі" />;

@@ -1,11 +1,11 @@
-import SetToEditButton from "@/components/setToEditButton";
+import SetToEditButton from "@/components/shared/setToEditButton";
 import { IOrder } from "@/models/order.model";
 import { Check, Undo2 } from "lucide-react";
 import moment from "moment";
 import { usePathname } from "next/navigation";
-import OrderInfo from "../orderInfo";
-import SetStatusButton from "../setStatusButton";
-import SetToDeleteButton from "../setToDeleteButton";
+import OrderInfo from "./orderInfo";
+import SetStatusButton from "../shared/setStatusButton";
+import SetToDeleteButton from "../shared/setToDeleteButton";
 
 type Props = {
   order: IOrder;
